@@ -168,15 +168,16 @@
 
     <div class="btn-group" role="group" aria-label="Basic radio toggle button group" style="margin-bottom: 25px;">
       <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
-      <label class="btn btn-outline-primary" for="btnradio1">Papular</label>
-    
-      <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
-      <label class="btn btn-outline-primary" for="btnradio3">Favorite</label>
-    </div>
-
+      <label class="btn btn-outline-primary" for="btnradio1" onclick="showContent('content1')">Popular</label>
+  
+      <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+      <label class="btn btn-outline-primary" for="btnradio2" onclick="showContent('content2')">Favorite</label>
+  </div>
+  
+  <div id="content1" style="display: block;">
     <div class="accordion">
-      <div class="accordion-item">
-          <button style="background-color: #007BFF; color: white;" class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#stock2" aria-expanded="false" aria-controls="stock2">
+      <div class="accordion-item" style="padding-bottom: 10px;">
+          <button style="background-color: #0c6dd4; color: white;" class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#stock2" aria-expanded="false" aria-controls="stock2">
             TSLA
           </button>
       </div>
@@ -244,16 +245,13 @@
       </div>
     </div>
 
-      
-
-
-
-      <div class="accordion" id="stockAccordion2">
-        <div class="accordion-item">
-            <button style="background-color: #007BFF; color: white;" class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#BBB" aria-expanded="false" aria-controls="BBB">
+      <div class="accordion" id="stockAccordion2 ">
+        <div class="accordion-item" >
+            <button style="background-color: #0c6dd4; color: white;" class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#BBB" aria-expanded="false" aria-controls="BBB">
               GOOG
             </button>
         </div>
+
         <div class="collapse" id="BBB">
           <div class="card card-body">
         
@@ -316,8 +314,158 @@
     
           </div>
       </div>
+      <p>This is the Popular content.</p>
+  </div>
+  
+  <div id="content2" style="display: block;">
+    <div class="accordion">
+      <div class="accordion-item" style="padding-bottom: 10px;">
+          <button style="background-color: #0c6dd4; color: white;" class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#stock2" aria-expanded="false" aria-controls="stock2">
+            TSLA
+          </button>
+      </div>
+      <div class="collapse" id="stock2">
+        <div class="card card-body">
+        
+          <section class="section dashboard">
+            <div class="row">
+  
+              <!-- Left side columns -->
+              <div class="col-lg-12">
+                <div class="row">
+              
+                  <!-- ADD BOXES HERE -->
+  
+                  <!-- Reports -->
+                  <div class="col-12">
+                    <div class="card" style="margin-top: 20px; background-color: rgb(217, 238, 254);">
+  
+                      <div class="card-body">
+                        <h5 class="card-title">Chart <span>/Now</span>
+                        </h5>
+  
+                        <!-- Line Chart -->
+                        <!-- TradingView Widget BEGIN -->
+                        <div class="tradingview-widget-container" style="height:100%";width:100%>
+                          <div id="tradingview_097e7" style="width: 100%; height: 550px;"></div>
+                          <div class="tradingview-widget-copyright"></div>
+                          <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+                          <script type="text/javascript">
+                          new TradingView.widget(
+                          {
+                          "autosize": true,
+                          "symbol": "NASDAQ:TSLA",
+                          "interval": "D",
+                          "timezone": "Asia/Kuwait",
+                          "theme": "light",
+                          "style": "1",
+                          "locale": "en",
+                          "enable_publishing": false,
+                          "allow_symbol_change": true,
+                          "container_id": "tradingview_097e7"
+                        }
+                          );
+                          </script>
+                        </div>
+                        <!-- End Line Chart -->
+  
+                      </div>
+  
+                    </div>
+                  </div><!-- End Reports -->
+  
+                </div>
+              </div><!-- End Left side columns -->
+  
+              <!-- Right side columns -->
+              <div class="col-lg-4">
+              </div><!-- End Right side columns -->
+  
+            </div>
+          </section>
+  
+        </div>
+      </div>
+    </div>
 
-      
+      <div class="accordion" id="stockAccordion2 ">
+        <div class="accordion-item" >
+            <button style="background-color: #0c6dd4; color: white;" class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#BBB" aria-expanded="false" aria-controls="BBB">
+              GOOG
+            </button>
+        </div>
+        <div class="collapse" id="BBB">
+          <div class="card card-body">
+            <section class="section dashboard">
+              <div class="row">
+                <!-- Left side columns -->
+                <div class="col-lg-12">
+                  <div class="row">
+                
+                    <!-- ADD BOXES HERE -->
+    
+                    <!-- Reports -->
+                    <div class="col-12">
+                      <div class="card" style="margin-top: 20px; background-color: rgb(217, 238, 254);">
+    
+                        <div class="card-body">
+                          <h5 class="card-title">Chart <span>/Now</span>
+                          </h5>
+    
+                          <!-- Line Chart -->
+                          <!-- TradingView Widget BEGIN -->
+                          <div class="tradingview-widget-container" style="height:100%";width:100%>
+                            <div id="tradingview_097e8" style="width: 100%; height: 550px;"></div>
+                            <div class="tradingview-widget-copyright"></div>
+                            <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+                            <script type="text/javascript">
+                            new TradingView.widget(
+                            {
+                            "autosize": true,
+                            "symbol": "NASDAQ:GOOG",
+                            "interval": "D",
+                            "timezone": "Asia/Kuwait",
+                            "theme": "light",
+                            "style": "1",
+                            "locale": "en",
+                            "enable_publishing": false,
+                            "allow_symbol_change": true,
+                            "container_id": "tradingview_097e8"
+                          }
+                            );
+                            </script>
+                          </div>
+                          <!-- End Line Chart -->
+    
+                        </div>
+    
+                      </div>
+                    </div><!-- End Reports -->
+    
+                  </div>
+                </div><!-- End Left side columns -->
+                <!-- Right side columns -->
+                <div class="col-lg-4">
+                </div><!-- End Right side columns -->
+              </div>
+            </section>
+          </div>
+      </div>
+      <p>This is the Favorite content.</p>
+  </div>
+  
+  <script>
+      function showContent(contentId) {
+          // Hide all content divs
+          var contents = document.querySelectorAll('[id^="content"]');
+          contents.forEach(function (content) {
+              content.style.display = 'none';
+          });
+  
+          // Show the selected content div
+          document.getElementById(contentId).style.display = 'block';
+      }
+  </script>
 
   </main><!-- End #main -->
   
