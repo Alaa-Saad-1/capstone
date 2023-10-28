@@ -33,19 +33,55 @@
   ======================================================== -->
 </head>
 <style>
-  .card-title {
-    color: black;
-    font-size: 1rem; /* Reduce font size for card title */
+  .row>* {
+    padding-right: calc(var(--bs-gutter-x) * .0);
+    padding-left: calc(var(--bs-gutter-x) * .0);
   }
-  .newsCards:hover .card-title {
-    color: rgb(0, 72, 255);
+  .newsCards {
+    margin: 10px;
+    border: 1px solid #e2e2e2;
+    border-radius: 8px;
+    transition: transform 0.2s, box-shadow 0.2s;
+    padding: 12px;
   }
+
+  .newsCards h2, span, p{
+    margin: 10px;
+  }
+
+  .newsCards:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .newsCards:hover h2 {
+    color: #0d6efd;
+  }
+
   .card-img {
-    height: 0;
-    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    height: fit-content; /* Reduce the image height */
+    object-fit: cover;
+    border-radius: 8px;
+    /* margin-left: -12px; */
   }
+
   .card-text {
-    font-size: 0.8rem; /* Reduce font size for card summary */
+    font-size: 0.8rem; /* Make the text smaller */
+  }
+
+  .card-title {
+    font-size: 1rem; /* Reduce the title font size */
+    font-weight: 600;
+    color: #333;
+  }
+
+  .fs-13 {
+    font-size: 0.7rem; /* Make the date text smaller */
+    color: #666;
+  }
+  
+  .custom-spinner .spinner-border {
+  color: #007BFF; /* Change to the desired blue color */
   }
 </style>
 
@@ -175,7 +211,6 @@
 
   <main id="main" class="main">
 
-
     <div class="pagetitle">
       <h1>Stock News</h1>
       <nav>
@@ -189,7 +224,7 @@
 
     <div class="btn-group" role="group" aria-label="Basic radio toggle button group" style="margin-bottom: 25px;">
       <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
-      <label class="btn btn-outline-primary" for="btnradio1">Papular</label>
+      <label class="btn btn-outline-primary" for="btnradio1">Popular</label>
     
       <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
       <label class="btn btn-outline-primary" for="btnradio3">Favorite</label>
@@ -197,15 +232,39 @@
 
     
     <div class="card card-body">
-      <!-- Code of the news Here -->
       <div class="container mt-5">
+        <div style="display: flex;">
           <div class="input-group mb-3">
             <input type="text" id="stockSymbol" class="form-control" placeholder="Enter Stock Symbol">
             <button class="btn btn-primary" id="searchButton">Search</button>
           </div>
-          <div id="newsResults" class="mt-3"></div>
-      </div>
+          <div class="input-group mb-3">
+            <!-- Filter dropdown -->
+            <select id="filterDropdown" class="form-select" style="margin: 0px 0px 0px 137px;">
+              <option value="RELEVANCE">RELEVANCE</option>
+              <option value="LATEST">LATEST</option>
+              <option value="TIME_FROM">TIME_FROM</option>
+            </select>
+            <div id="timeFromInput" style="display: none;">
+              <input type="date" id="timeFromDate" class="form-control">
+            </div>
+            <button class="btn btn-primary" id="searchButton2" style="display: block;">GO</button>
+            <button class="btn btn-primary" id="searchButton3" style="display: none;">GO</button>
 
+
+          </div>
+        </div>
+        <!-- Loading spinner -->
+        <div id="loadingSpinner" class="text-center mt-3 custom-spinner" style="display: none;">
+          <div class="spinner-border text-primary" role="status">
+          </div>
+          <p style="color: #007BFF;">Loading news...</p>
+        </div>
+    
+        <div id="newsResults" class="mt-3">
+          <!-- Here the News -->
+        </div>
+      </div>
     </div>
 
   </main><!-- End #main -->
@@ -234,153 +293,184 @@
 
   <script>
         $(document).ready(function () {
+            //click keybord (Enter)
             $("#stockSymbol").keydown(function(event) {
                 if (event.key === "Enter") {
                     event.preventDefault();
                     const stockSymbol = $("#stockSymbol").val();
                     if (stockSymbol) {
-                        fetchStockNews(stockSymbol);
+                      const filter = $("#filterDropdown").val();
+                      const timeFrom = $("#timeFromDate").val();
+                      fetchStockNews(stockSymbol, filter, timeFrom);
+                      $("#searchButton2").css("display", "none");
+                      $("#searchButton3").css("display", "block");
+                    } else{
+                      window.location.href = "news.html";
                     }
                 }
             });
-
+            //click search
             $("#searchButton").click(function () {
                 const stockSymbol = $("#stockSymbol").val();
                 if (stockSymbol) {
-                    fetchStockNews(stockSymbol);
-                    // console.log(stockSymbol);
-                }
+                      const filter = $("#filterDropdown").val();
+                      const timeFrom = $("#timeFromDate").val();
+                      fetchStockNews(stockSymbol, filter, timeFrom);
+                      $("#searchButton2").css("display", "none");
+                      $("#searchButton3").css("display", "block");
+                    } else{
+                      window.location.href = "news.html";
+                    }
             });
 
-            function fetchStockNews(symbol) {
-                const apiKey = "U9KLBCU1Y8YIYD5T";
-                const apiUrl = `https://www.alphavantage.co/query?function=NEWS_SENTIMENT&apikey=${apiKey}&topics=technology&tickers=${symbol}&sort=RELEVANCE`;
+            function fetchStockNews(symbol,filter, timeFrom) {
+              console.log("SEARCH:" + symbol);
+              const apiKey = "MCZ5C1JKBEGT92PZ";
+              let apiUrl = `https://www.alphavantage.co/query?function=NEWS_SENTIMENT&apikey=${apiKey}&topics=technology&tickers=${symbol}`;
+              //const apiUrl = `https://www.alphavantage.co/query?function=NEWS_SENTIMENT&tickers=AAPL&apikey=demo`;
 
-                $.get(apiUrl, function (data) {
-                    if (data && data.feed) {
-                        displayNews(data.feed);
-                        console.log(data.feed);//*****************************************************************************************************************************
-                    } else {
-                        $("#newsResults").html("<p>No news available for this stock symbol.</p>");
-                    }
-                });
+              if(filter === "RELEVANCE")
+                apiUrl+= `&sort=RELEVANCE`;
+              else if (filter === "TIME_FROM") {
+                const timeFromTimestamp = timeFrom.replace(/-/g, "").concat("T0130");
+                apiUrl += `&time_from=${timeFromTimestamp}&sort=RELEVANCE`;
+                //const apiUrl = `https://www.alphavantage.co/query?function=NEWS_SENTIMENT&tickers=AAPL&apikey=demo`;
+                console.log(timeFromTimestamp);
+              }
+              console.log("Filter: " + filter);
+
+                // Clear previous results and Show the loading spinner
+              $("#newsResults").html("");
+              $("#loadingSpinner").show();
+            
+              $.get(apiUrl, function (data) {
+                if (data && data.feed) {
+                  // Hide the loading spinner
+                  $("#loadingSpinner").hide();
+
+                  // Display news cards with animation
+                  displayNewsWithAnimation(data.feed);
+                } else {
+                  $("#newsResults").html("<p>No news available for this stock symbol.</p>");
+                }
+              });
             }
 
-            function displayNews(feed) {
-      const newsResultsDiv = $("#newsResults");
-      newsResultsDiv.html(""); // Clear previous results
-
-      for (const article of feed) {
-          // Parse the timestamp
-          const timestamp = article.time_published;
-          const year = timestamp.substring(0, 4);
-          const month = timestamp.substring(4, 6);
-          const day = timestamp.substring(6, 8);
-          const hour = timestamp.substring(9, 11);
-          const minutes = timestamp.substring(11, 13);
-
-          // Display the formatted date and time
-          const formattedDateTime = `${day}/${month}/${year} ${hour}:${minutes}`;
-
-          const newsCard = `
-            <a href="${article.url}" style="text-decoration: none;" target="_blank">
-              <div class="col-lg-12 stretch-card grid-margin newsCards">
-                <div class="card border-0">
-                  <div class="card-body">
-                    <div class="row">
-                      <div class="col-sm-3 grid-margin">
-                        <div class="position-relative">
-                          <div class="rotate-img">
-                            <img src="${article.banner_image}" alt="thumb" class="img-fluid" style="max-width: 100%; height: auto; max-height: 200px;">
-                          </div>
-                          <div class="badge-positioned">
-                            <span class="badge badge-danger font-weight-bold">Flash news</span>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-sm-9 grid-margin">
-                        <h2 class="mb-2 font-weight-600 card-title" style="font-size: 1.5rem;">${article.title}</h2>
-                        <div class="fs-13 mb-2">
-                          <span class="mr-2" style="font-size: 0.8rem;">Photo </span>${formattedDateTime}
-                        </div>
-                        <p class="mb-0" style="font-size: 0.9rem;">${article.summary}</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </a>
-          `;
-          
-          newsResultsDiv.append(newsCard);
-      }
-    }
+             // Handle the search button click
+            $("#searchButton3").click(function () {
+              const stockSymbol = $("#stockSymbol").val();
+                if (stockSymbol) {
+                  const filter = $("#filterDropdown").val();
+                  const timeFrom = $("#timeFromDate").val();
+                  fetchStockNews(stockSymbol, filter, timeFrom);
+                }
+            });
         });
   </script>
-  <script>
-      function fetchStockNews_onload() {
-                const apiKey = "U9KLBCU1Y8YIYD5T";
-                const apiUrl = `https://www.alphavantage.co/query?function=NEWS_SENTIMENT&apikey=${apiKey}&topics=technology&sort=RELEVANCE`;
+  <!-- End of search News -->
 
-                $.get(apiUrl, function (data) {
-                    if (data && data.feed) {
-                        displayNews(data.feed);
-                        console.log(data.feed);//*****************************************************************************************************************************
-                    } else {
-                        $("#newsResults").html("<p>No news available for this stock symbol.</p>");
-                    }
-                });
-            }
+<script>
+  $(document).ready(function () {
 
-            function displayNews(feed) {
-      const newsResultsDiv = $("#newsResults");
-      newsResultsDiv.html(""); // Clear previous results
+    function fetchStockNews(filter, timeFrom) {
+      const apiKey = "MCZ5C1JKBEGT92PZ";
+      console.log("HOME");
+      let apiUrl = `https://www.alphavantage.co/query?function=NEWS_SENTIMENT&apikey=${apiKey}&topics=technology`;
+      //const apiUrl = `https://www.alphavantage.co/query?function=NEWS_SENTIMENT&tickers=AAPL&apikey=demo`;
+      
+      if(filter === "RELEVANCE")
+        apiUrl+= `&sort=RELEVANCE`;
+      else if (filter === "TIME_FROM") {
+        const timeFromTimestamp = timeFrom.replace(/-/g, "").concat("T0130");
+        apiUrl += `&time_from=${timeFromTimestamp}&sort=RELEVANCE`;
+        //const apiUrl = `https://www.alphavantage.co/query?function=NEWS_SENTIMENT&tickers=AAPL&apikey=demo`;
+        console.log(timeFromTimestamp);
+      }
+      console.log("Filter: " + filter);
 
-      for (const article of feed) {
-          // Parse the timestamp
-          const timestamp = article.time_published;
-          const year = timestamp.substring(0, 4);
-          const month = timestamp.substring(4, 6);
-          const day = timestamp.substring(6, 8);
-          const hour = timestamp.substring(9, 11);
-          const minutes = timestamp.substring(11, 13);
+      // Show the loading spinner
+      $("#loadingSpinner").show();
 
-          // Display the formatted date and time
-          const formattedDateTime = `${day}/${month}/${year} ${hour}:${minutes}`;
+      $.get(apiUrl, function (data) {
+        if (data && data.feed) {
+          // Hide the loading spinner
+          $("#loadingSpinner").hide();
 
-          const newsCard = `
-            <a href="${article.url}" style="text-decoration: none;" target="_blank">
-              <div class="col-lg-12 col-md-12 col-sm-12 stretch-card grid-margin newsCards">
-                <div class="card border-0">
-                  <div class="card-body">
-                    <div class="row">
-                      <div class="col-lg-3 col-md-4 col-sm-12 grid-margin">
-                        <div class="position-relative">
-                          <div class="rotate-img">
-                            <img src="${article.banner_image}" alt="thumb" class="img-fluid" style="max-width: 100%; height: auto; max-height: 200px;">
-                          </div>
-                          <div class="badge-positioned">
-                            <span class="badge badge-danger font-weight-bold">Flash news</span>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-lg-9 col-md-8 col-sm-12 grid-margin">
-                        <h2 class="mb-2 font-weight-600 card-title" style="font-size: 1.2rem;">${article.title}</h2>
-                        <div class="fs-13 mb-2">
-                          <span class="mr-2" style="font-size: 0.8rem;">Photo </span>${formattedDateTime}
-                        </div>
-                        <p class="mb-0" style="font-size: 0.9rem;">${article.summary}</p>
-                      </div>
-                    </div>
-                  </div>
+          // Display news cards with animation
+          displayNewsWithAnimation(data.feed);
+        } else {
+          $("#newsResults").html("<p>No news available for this stock symbol.</p>");
+        }
+      });
+    }
+
+    // Show/hide the date input based on the filter selection
+    $("#filterDropdown").change(function () {
+      const selectedFilter = $(this).val();
+      if (selectedFilter === "TIME_FROM") {
+        $("#timeFromInput").show();
+      } else {
+        $("#timeFromInput").hide();
+      }
+    });
+
+    // Handle the search button click
+    $("#searchButton2").click(function () {
+      const filter = $("#filterDropdown").val();
+      const timeFrom = $("#timeFromDate").val();
+      fetchStockNews(filter, timeFrom);
+    });
+
+    // Initialize with the default filter
+    fetchStockNews("RELEVANCE", "");
+  });
+
+  function displayNewsWithAnimation(feed) {
+    const newsResultsDiv = $("#newsResults");
+    newsResultsDiv.html(""); // Clear previous results
+
+    for (const article of feed) {
+      // Parse the timestamp
+      const timestamp = article.time_published;
+      const year = timestamp.substring(0, 4);
+      const month = timestamp.substring(4, 6);
+      const day = timestamp.substring(6, 8);
+      const hour = timestamp.substring(9, 11);
+      const minutes = timestamp.substring(11, 13);
+
+      // Display the formatted date and time
+      const formattedDateTime = `${day}/${month}/${year} ${hour}:${minutes}`;
+
+      // Initially hide the news card
+      const newsCard = `
+        <a href="${article.url}" style="text-decoration: none; color: #333;" target="_blank">
+          <div class="row newsCards" style="display: none;">
+            <div class="col-lg-3 col-md-4 col-sm-12 grid-margin">
+              <div class "position-relative">
+                <div class="rotate-img">
+                  <img src="${article.banner_image}" alt="thumb" class="img-fluid card-img">
                 </div>
               </div>
-            </a>
-          `;
-          newsResultsDiv.append(newsCard);
-      }
+            </div>
+            <div class="col-lg-9 col-md-8 col-sm-12 grid-margin">
+              <h2 class="mb-2 card-title">${article.title}</h2>
+              <div class="fs-13 mb-2">
+                <span class="mr-2">Photo</span>${formattedDateTime}
+              </div>
+              <p class="mb-0 card-text">${article.summary}</p>
+            </div>
+          </div>
+        </a>
+      `;
+      newsResultsDiv.append(newsCard);
+
+      // Use jQuery to animate the news card
+      $(".newsCards:hidden").slideDown(800); // Adjust animation speed as needed
     }
-  </script>
+  }
+</script>
+
+
 </body>
 
 </html>
