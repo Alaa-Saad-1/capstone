@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>UTRADE</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <!-- Favicons -->
+  <link href="assets/img/UTRADE_ICON-removebg-preview.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+  <!-- Google Fonts (You can keep only the fonts you use) -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600|Nunito:400,600|Poppins:400,500,600,700" rel="stylesheet">
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <!-- Template Main CSS File -->
+  <link href="assets/css/style.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://fontawesome.com/icons/computer-classic?f=classic&s=solid">
+  <!-- Add the Font Awesome CSS -->
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.15.0/css/all.css">
+</head>
+
+<style>
+  .symbol {
+      font-weight: bold;
+  }
+
+  .price, .change, .percentage-change {
+      font-weight: bold;
+  }
+
+  .positive-change {
+      color: #016e43;
+  }
+
+  .negative-change {
+      color: #c20404;
+  }
+
+  .dark-blue {
+      color: #003366;
+  }
+
+  .center-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 70vh;
+  margin-top: 5px;
+}
+
+  main .container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-top: 30px;
+    }
+
+  main .card {
+    width: 18rem;
+    transition: transform 0.2s; /* Add a smooth transition effect */
+  }
+  main .card:hover {
+    transform: scale(1.05); /* Enlarge the card on hover */
+  }
+  .btn-container {
+    text-align: right;
+    margin-right: 30px;
+  }
+
+  .btn{
+    margin-right: 10px;
+  }
+
+  main {
+  text-align: center;
+}
+
+.center-container {
+  margin: 0 auto;
+}
+
+.fa-regular {
+  font-size: 20px;
+}
+
+.modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      display: none;
+    }
+
+    .modal-content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 700px;
+      height: 500px;
+      background-color: white;
+      padding: 20px;
+    }
+
+    .modal-header {
+      border-bottom: 1px solid black;
+    }
+
+    .modal-body {
+      padding-top: 20px;
+    }
+
+    .modal-footer {
+      text-align: right;
+    }
+</style>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="header fixed-top d-flex align-items-center">
+
+    <div class="d-flex align-items-center justify-content-between">
+      <a href="interests.html" class="logo d-flex align-items-center">
+        <img src="assets/img/logo.png" alt="logo" style="padding-left: 40px;">
+      </a>
+    </div><!-- End Logo -->
+
+    <nav class="header-nav ms-auto">
+      <ul class="d-flex align-items-center">
+
+        <li class="nav-item d-block d-lg-none">
+          <a class="nav-link nav-icon search-bar-toggle " href="#">
+          </a>
+        </li><!-- End Search Icon-->
+
+        <li class="nav-item dropdown pe-3">
+
+        </li><!-- End Profile Nav -->
+
+      </ul>
+    </nav><!-- End Icons Navigation -->
+
+  </header><!-- End Header -->
+
+  <!-- ======= main ======= -->
+  <main>
+    <h3>choose your favoraite stoks here</h3>
+    <div class="center-container">
+      <div class="container">
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title">Software</h5>
+                <a href="#" class="btn btn-primary show-modal-btn">show all</a>
+            </div>
+        </div>
+        <div class="modal" class="modal">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h2>Software stocks</h2>
+            </div>
+            <div class="modal-body">
+              This is a modal.
+            </div>
+            <div class="modal-footer">
+              <button class="btn btn-primary">Reset</button>
+              <button type="button" class="btn btn-primary close-btn" onclick="closeModal()">Close</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="width: 18rem;">
+          <div class="card-body">
+              <h5 class="card-title">Hardware</h5>
+              <a href="#" class="btn btn-primary show-modal-btn">show all</a>
+          </div>
+      </div>
+
+      <div class="card" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title">Security</h5>
+            <a href="#" class="btn btn-primary show-modal-btn">show all</a>
+        </div>
+    </div>
+
+    <div class="card" style="width: 18rem;">
+      <div class="card-body">
+          <h5 class="card-title">telecommunication</h5>
+          <a href="#" class="btn btn-primary show-modal-btn">show all</a>
+      </div>
+  </div>
+
+  <div class="card" style="width: 18rem;">
+    <div class="card-body">
+        <h5 class="card-title">IT services</h5>
+        <a href="#" class="btn btn-primary show-modal-btn">show all</a>
+    </div>
+</div>
+
+<div class="card" style="width: 18rem;">
+  <div class="card-body">
+      <h5 class="card-title">Internet Services</h5>
+      <a href="#" class="btn btn-primary show-modal-btn">show all</a>
+  </div>
+</div>
+      </div>
+    </div>
+    <div class="btn-container">
+      <button class="btn btn-primary" href="index.html">Next</button>
+    </div>
+  </main>
+  <script>
+    const showModalBtns = document.querySelectorAll('.show-modal-btn');
+    const modal = document.querySelector('.modal');
+    const closeBtn = modal.querySelector('.close-btn');
+
+    showModalBtns.forEach(button => {
+      button.addEventListener('click', () => {
+        modal.style.display = 'block';
+      });
+    });
+
+    modal.addEventListener('click', (event) => {
+      if (event.target === modal || event.target === closeBtn) {
+        modal.style.display = 'none';
+      }
+    });
+
+    closeBtn.addEventListener('click', () => {
+      modal.classList.add('modal-close-animation');
+
+      modal.addEventListener('animationend', () => {
+        modal.classList.remove('modal-close-animation');
+      });
+    });
+  </script>
+
+  <!-- ======= footer ======= -->
+  <footer class="footer" style="margin-top: 50px;">
+    <div class="copyright">
+      <a href="#">&copy; Copyright <strong><span>UTRADE</span></strong>.</a>
+    </div>
+  </footer>
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
