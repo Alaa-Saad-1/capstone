@@ -45,9 +45,9 @@
     padding: 12px;
   }
 
-  .newsCards h2, span, p{
+  /* .newsCards h2, span, p{
     margin: 10px;
-  }
+  } */
 
   .newsCards:hover {
     transform: translateY(-5px);
@@ -453,11 +453,11 @@
               </div>
             </div>
             <div class="col-lg-9 col-md-8 col-sm-12 grid-margin">
-              <h2 class="mb-2 card-title">${article.title}</h2>
+              <h2 class="mb-2 card-title" style="margin-left: 15px;">${article.title}</h2>
               <div class="fs-13 mb-2">
-                <span class="mr-2">Photo</span>${formattedDateTime}
+                <span style="margin-left: 15px;" class="mr-2">Photo</span>${formattedDateTime}
               </div>
-              <p class="mb-0 card-text">${article.summary}</p>
+              <p style="margin-left: 15px;" class="mb-0 card-text">${article.summary}</p>
             </div>
           </div>
         </a>

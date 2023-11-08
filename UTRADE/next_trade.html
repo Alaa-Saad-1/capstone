@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>UTRADE</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="assets/img/UTRADE_ICON-removebg-preview.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.gstatic.com" rel="preconnect">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="assets/css/style.css" rel="stylesheet">
+
+  <!-- =======================================================
+  * Template Name: NiceAdmin
+  * Updated: Sep 18 2023 with Bootstrap v5.3.2
+  * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->  
+</head>
+
+<body>
+  <!-- ======= Header ======= -->
+  <header id="header" class="header fixed-top d-flex align-items-center">
+
+    <div class="d-flex align-items-center justify-content-between">
+      <i class="bi bi-list toggle-sidebar-btn" style="margin-left: -20px;"></i>
+      <a href="index.html" class="logo d-flex align-items-center">
+        <img src="assets/img/logo.png" alt="logo" style="padding-left: 40px;">
+      </a>
+    </div><!-- End Logo -->
+
+    <nav class="header-nav ms-auto">
+      <ul class="d-flex align-items-center">
+
+        <li class="nav-item d-block d-lg-none">
+          <a class="nav-link nav-icon search-bar-toggle " href="#">
+          </a>
+        </li><!-- End Search Icon-->
+
+        <li class="nav-item dropdown pe-3">
+
+          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+            <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
+            <span class="d-none d-md-block dropdown-toggle ps-2">UserName</span>
+          </a><!-- End Profile Iamge Icon -->
+
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+            <li class="dropdown-header">
+              <h6>UserName</h6>
+              <br>
+            </li>
+          <li>
+              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+                <i class="bi bi-person"></i>
+                <span>My Profile</span>
+              </a>
+            </li>
+            <li>
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
+                <i class="bi bi-question-circle"></i>
+                <span>Need Help?</span>
+              </a>
+            </li>
+            <li>
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="#">
+                <i class="bi bi-box-arrow-right"></i>
+                <span>Sign Out</span>
+              </a>
+            </li>
+
+          </ul><!-- End Profile Dropdown Items -->
+        </li><!-- End Profile Nav -->
+
+      </ul>
+    </nav><!-- End Icons Navigation -->
+
+  </header><!-- End Header -->
+
+  <!-- ======= Sidebar ======= -->
+  <aside id="sidebar" class="sidebar">
+
+    <ul class="sidebar-nav" id="sidebar-nav">
+
+      <li class="nav-item">
+        <a class="nav-link " href="index.html">
+          <i class="bi bi-grid"></i>
+          <span>Home</span>
+        </a>
+      </li><!-- End Dashboard Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="news.html">
+          <i class="bi bi-newspaper"></i>
+          <span>News</span>
+        </a>
+      </li><!-- End News le Page Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="search.html">
+          <i class="bi bi-currency-dollar"></i>
+          <span>Stocks</span>
+        </a>
+      </li><!-- End Stocks le Page Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="trade.html">
+          <i class="bi bi-arrow-up-right-circle-fill"></i>
+          <span>Trade</span>
+        </a>
+      </li><!-- End Contact Page Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="pages-contact.html">
+          <i class="bi bi-envelope"></i>
+          <span>Contact Us</span>
+        </a>
+      </li><!-- End Contact Page Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="pages-register.html">
+          <i class="bi bi-card-list"></i>
+          <span>Register</span>
+        </a>
+      </li><!-- End Register Page Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="pages-login.html">
+          <i class="bi bi-box-arrow-in-right"></i>
+          <span>Login</span>
+        </a>
+      </li><!-- End Login Page Nav -->
+    </ul>
+  </aside><!-- End Sidebar-->
+    
+  <main id="main" class="main">
+    <div class="pagetitle">
+        <h1>Test Your Plan:</h1>
+        <nav>
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item active">Trade</li>
+          </ol>
+        </nav>
+      </div><!-- End Page Title -->
+      
+      <div class="container mt-5">
+        <form id="stock-allocation-form" action="result.html">
+          <!-- Retrieve the data array from localStorage -->
+          <h2>Number of shares:</h2>
+          <ul id="stock-allocations"></ul>
+          <h5 id="Budget"></h5>
+        
+          <h5 id="amount"></h5>
+          <button type="button" id="check-button" class="btn btn-outline-primary">Check</button>
+          <button onclick="auto_fill()" type="button" id="check-button" class="btn btn-outline-primary">Auto filling</button><br><br><br>
+      
+          <!-- Add a "Cancel" button to remove the last stock symbol -->
+          <button type="button" id="cancel-button" class="btn btn-danger">Cancel</button>
+          <span id="alert"></span>
+      
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+      
+  </main><!-- End #main -->
+
+<!-- ======= Footer ======= -->
+  <footer id="footer" class="footer" style="margin-top: 250px;">
+    <div class="copyright">
+      <a href="#">&copy; Copyright <strong><span>UTRADE</span></strong>.</a>
+    </div>
+    <div class="credits">
+      <!-- All the links in the footer should remain intact. -->
+      <!-- You can delete the links only if you purchased the pro version. -->
+      <!-- Licensing information: https://bootstrapmade.com/license/ -->
+      <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
+    </div>
+  </footer><!-- End Footer -->
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+    
+    <!-- Vendor JS Files -->
+    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- Template Main JS File -->
+    <script src="assets/js/main.js"></script>
+
+<script>
+  const stockDataArray = JSON.parse(localStorage.getItem("stockDataArray"));
+
+  if (stockDataArray) {
+    const stockAllocations = document.getElementById("stock-allocations");
+
+    // Display and allow allocation for the latest set of data
+    const latestStockData = stockDataArray[stockDataArray.length - 1]; //return an Object
+
+    document.getElementById('cancel-button').addEventListener('click', ()=>{
+        stockDataArray.pop();
+        localStorage.setItem("stockDataArray", JSON.stringify(stockDataArray));
+        window.location.href = "index.html";
+    })
+
+    var inner = "";
+    latestStockData.data.forEach(stock => {
+    inner += `
+        <span>${stock.symbol} (price: $${stock.price}):</span><br>
+        <div class="col-2">
+            <input class="form-control" type="number" name="${stock.symbol.trim()}" placeholder="Number of shares" value="1">
+        </div>
+        <br>
+    `;
+    });
+    stockAllocations.innerHTML = inner;
+
+    document.getElementById('Budget').innerHTML = `Budget: $${Number(latestStockData.Budgit).toFixed(2)}`;
+
+
+    // Store the allocation data in localStorage when the form is submitted
+    var i=0;
+    document.getElementById("stock-allocation-form").addEventListener("submit", function (e) {
+      clickEventHandler();
+      e.preventDefault();
+      latestStockData.data.forEach(stock => {
+        const shareInput = document.getElementsByName(stock.symbol.trim())[0];
+        if (shareInput) {
+          const sharesNo = shareInput.value;
+          latestStockData.data[i++].shares = Number(sharesNo);
+        }
+      });
+
+      i=0;
+      // Update the stockDataArray in localStorage with the updated data
+      if(initialAmount < Number(latestStockData.Budgit)){
+        const modifiedBudget = (Number(latestStockData.Budgit) - initialAmount).toFixed(2);
+        latestStockData.Budgit = modifiedBudget; // Set the new budget
+        
+        const modalHTML2 = `
+                <div class="modal fade" id="exampleModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="staticBackdropLabel">warning!</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            You must add <b>$${-1*initialAmount.toFixed(2)}</b> to your budget<br><br>
+                            Do you want to add <b>$${-1*initialAmount.toFixed(2)}</b> to your budget<br>
+                            Your budget will be: <b>$${(Number(latestStockData.Budgit)+(-1*initialAmount)).toFixed(2)}</b>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">No</button>
+                            <button onclick="increase_budget(${-1*initialAmount.toFixed(2)})" data-bs-dismiss="modal" type="button" class="btn btn-primary">Yes</button>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+          
+         // Set the modal HTML to the "alert" element
+         document.getElementById('alert').innerHTML = modalHTML2;
+        // alert(`Your budget has been adjusted to ${latestStockData.Budgit}`);
+        // Show the modal using JavaScript
+        const modal = new bootstrap.Modal(document.getElementById('exampleModal'));
+          modal.show();
+      }
+      localStorage.setItem("stockDataArray", JSON.stringify(stockDataArray));
+
+      // Redirect to the result page
+      window.location.href = "result.html";
+    });
+
+
+    var initialAmount = Number(latestStockData.Budgit);
+    clickEventHandler();
+
+    function clickEventHandler(){
+        initialAmount = latestStockData.Budgit;
+        latestStockData.data.forEach(stock => {
+            const shareInput = document.getElementsByName(stock.symbol.trim())[0];
+            if (shareInput) {
+                const sharesNo = shareInput.value;
+                initialAmount -= sharesNo * stock.price;
+            }
+        });
+
+        if(initialAmount < 0 && (-1*initialAmount.toFixed(2)) != 0){
+            const modalHTML = `
+                <div class="modal fade" id="exampleModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="staticBackdropLabel">warning!</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            You must add <b>$${-1*initialAmount.toFixed(2)}</b> to your budget<br><br>
+                            Do you want to add <b>$${-1*initialAmount.toFixed(2)}</b> to your budget<br>
+                            Your budget will be: <b>$${(Number(latestStockData.Budgit)+(-1*initialAmount)).toFixed(2)}</b>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">No</button>
+                            <button onclick="increase_budget(${-1*initialAmount.toFixed(2)})" data-bs-dismiss="modal" type="button" class="btn btn-primary">Yes</button>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // Set the modal HTML to the "alert" element
+            document.getElementById('alert').innerHTML = modalHTML;
+            
+            document.getElementById('amount').innerHTML = `<span style="color: red;" >You must add: $${-1*initialAmount.toFixed(2)}</span>`;
+            // Show the modal using JavaScript
+            const modal = new bootstrap.Modal(document.getElementById('exampleModal'));
+            modal.show();
+        }
+        else
+            document.getElementById('amount').innerHTML = `<span>You still have: $${Math.abs(initialAmount.toFixed(2))}</span>`;
+    }
+    function increase_budget(value){
+        latestStockData.Budgit = (Number(latestStockData.Budgit) + value).toFixed(2);
+        document.getElementById('Budget').innerHTML = `Budget: $${latestStockData.Budgit}`;
+        localStorage.setItem("stockDataArray", JSON.stringify(stockDataArray));
+        initialAmount = Number(latestStockData.Budgit).toFixed(2);
+        document.getElementById('amount').innerHTML = `<span>You still have: $0.00</span>`;
+    }
+
+    function auto_fill(){
+        //let n = Number(latestStockData.Budgit);
+        let sum = 0;
+        let sum2 = 0;
+        let min = latestStockData.data[0].price;
+        let c = 1;
+        let k = 0;
+        if(latestStockData.data.length != 1){
+            latestStockData.data.forEach(stock => {
+                sum+= stock.price;
+                if(min > stock.price){
+                    min = stock.price;
+                    index = k;
+                }
+                k++;
+            });
+
+            console.log("index = " + index);
+            console.log("k = " + k);
+
+            sum2 = sum;
+            while(1){
+                if((sum+sum2) < (Number(latestStockData.Budgit)+0.5)){
+                    sum+=sum2;
+                    c++;
+                }
+                else
+                    break;
+            }
+            console.log("sum = " + sum);
+            console.log("c = " + c);
+
+            latestStockData.data.forEach(stock => {
+                const shareInput = document.getElementsByName(stock.symbol.trim())[0];
+                if (shareInput) {
+                    shareInput.value = c;
+                }
+            });
+
+            let times = 0;
+            const the_min_price = document.getElementsByName(latestStockData.data[index].symbol.trim())[0];
+            console.log("the_min_price" + the_min_price.value);
+            while(true){
+                if((((times+1)*latestStockData.data[index].price) + sum) <= (Number(latestStockData.Budgit)+0.1))
+                    times+=1;
+                else
+                    break;
+            }
+            console.log("times = " + times);
+            if(((times*Number(the_min_price.value)) + sum) <= Number(latestStockData.Budgit)){
+                let a = Number(the_min_price.value);
+                a+=times;
+                the_min_price.value = a;
+            }
+        }
+        else if(latestStockData.data.length == 1){
+            let PRICE = Number(latestStockData.data[0].price);
+            let BUDGET = Number(latestStockData.Budgit);
+            k = PRICE;
+            let j = 0;
+            while((k+PRICE) <= (BUDGET+0.5)){
+                k+=PRICE;
+                j++;
+            }
+            console.log("j = "+j);
+            const shareInput = document.getElementsByName(latestStockData.data[0].symbol.trim())[0];
+            if(((Number(shareInput.value)+j)*PRICE) <= (BUDGET+0.5)){
+                let a = Number(shareInput.value);
+                a+=j;
+                shareInput.value = a;
+            }
+        }
+           
+        clickEventHandler();
+    }
+
+    document.getElementById('check-button').addEventListener('click',clickEventHandler);
+  }
+
+</script>
+</body>
+</html>

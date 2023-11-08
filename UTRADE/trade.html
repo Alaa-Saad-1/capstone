@@ -163,31 +163,31 @@
         </ol>
       </nav>
     </div><!-- End Page Title -->
-
+    
     <div class="container mt-5">
-      <form action="result.html">
+      <form id="stock-selection-form" action="page2.html">
         <div class="row">
           <div class="col-md-6 mb-3">
-            <label for="initial-amount" class="form-label">Enter the Stocks symbol (separated with a comma):</label>
-            <input type="text" class="form-control" id="initial-amount" required>
+            <label for="stock-symbols" class="form-label">Enter the Stocks symbol (separated with a comma):</label>
+            <input type="text" class="form-control" id="stock-symbols" name="stock-symbols" required>
           </div>
         </div>
     
         <div class="row">
           <div class="col-md-6 mb-3">
-            <label for="dateInput" class="form-label">Enter the end day:</label>
-            <input type="date" class="form-control" id="dateInput" name="dateInput" required>
+            <label for="due-date" class="form-label">Select the due date:</label>
+            <input type="date" class="form-control" id="due-date" name="due-date" required>
           </div>
-        </div>  
-
-          <div class="row">
+        </div>
+    
+        <div class="row">
           <div class="col-md-6 mb-3">
             <label for="initial-amount" class="form-label">Enter the initial amount (Dollar):</label>
-            <input type="text" class="form-control" id="initial-amount" required>
+            <input type="number" class="form-control" id="initial-amount" name="initial-amount" required>
           </div>
         </div>
     
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary">Next</button>
       </form>
     </div>
   </main><!-- End #main -->
@@ -218,5 +218,48 @@
 
     <!-- Template Main JS File -->
     <script src="assets/js/main.js"></script>
+
+    <script>
+      var stockDataArray = JSON.parse(localStorage.getItem("stockDataArray")) || [];
+
+      document.getElementById("stock-selection-form").addEventListener("submit", function (e) {
+          e.preventDefault();
+          const stockSymbols = document.getElementById("stock-symbols").value.split(",");
+          const dueDate = document.getElementById("due-date").value;
+          const initialAmount = document.getElementById("initial-amount").value;
+
+          trade = {
+            DueDate: dueDate,
+            Budgit: initialAmount,
+            data:[]
+          }
+          // Fetch the price for each symbol from the API
+          const apiUrl = `https://financialmodelingprep.com/api/v3/quote-order/`;
+          const apiKey = 'DZdHINhAKeEnsE6yDLBYFVI9lWOvPcLI'; // Replace with your API key
+  
+          // Use a promise to ensure all API requests are completed before redirecting
+          const fetchSymbolDataPromises = stockSymbols.map(symbol => {
+              return fetch(`${apiUrl}${symbol}?apikey=${apiKey}`)
+                  .then(response => response.json())
+                  .then(data => {
+                      const sharePrice = data[0].price;
+                      // Create an object for each symbol with 1 share and the price
+                      const symbolData = { symbol: symbol, shares: 1, price: Number(sharePrice) };
+                      trade.data.push(symbolData);
+                  });
+          });
+          
+
+          Promise.all(fetchSymbolDataPromises).then(() => {
+              stockDataArray.push(trade);
+
+              // Store the array of symbol data in localStorage
+              localStorage.setItem("stockDataArray", JSON.stringify(stockDataArray));
+  
+              // Redirect to the second page
+              window.location.href = "next_trade.html";
+          });
+      });
+  </script>
 </body>
 </html>
