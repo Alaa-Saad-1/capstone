@@ -228,14 +228,21 @@
           const dueDate = document.getElementById("due-date").value;
           const initialAmount = document.getElementById("initial-amount").value;
 
+          const today = new Date();
+          const year = today.getFullYear();
+          const month = (today.getMonth() + 1).toString().padStart(2, '0'); // Month is 0-based, so add 1
+          const day = today.getDate().toString().padStart(2, '0');
+          const formDate = `${year}-${month}-${day}`;
+
           trade = {
+            FromDate: formDate,
             DueDate: dueDate,
-            Budgit: initialAmount,
+            Budget: initialAmount,
             data:[]
           }
           // Fetch the price for each symbol from the API
           const apiUrl = `https://financialmodelingprep.com/api/v3/quote-order/`;
-          const apiKey = 'DZdHINhAKeEnsE6yDLBYFVI9lWOvPcLI'; // Replace with your API key
+          const apiKey = 'k0wOZwaeBqPBeeutNskntC6QdhCCK4WY'; // Replace with your API key
   
           // Use a promise to ensure all API requests are completed before redirecting
           const fetchSymbolDataPromises = stockSymbols.map(symbol => {

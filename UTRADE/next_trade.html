@@ -231,7 +231,7 @@
     });
     stockAllocations.innerHTML = inner;
 
-    document.getElementById('Budget').innerHTML = `Budget: $${Number(latestStockData.Budgit).toFixed(2)}`;
+    document.getElementById('Budget').innerHTML = `Budget: $${Number(latestStockData.Budget).toFixed(2)}`;
 
 
     // Store the allocation data in localStorage when the form is submitted
@@ -249,51 +249,58 @@
 
       i=0;
       // Update the stockDataArray in localStorage with the updated data
-      if(initialAmount < Number(latestStockData.Budgit)){
-        const modifiedBudget = (Number(latestStockData.Budgit) - initialAmount).toFixed(2);
-        latestStockData.Budgit = modifiedBudget; // Set the new budget
-        
-        const modalHTML2 = `
-                <div class="modal fade" id="exampleModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                        <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="staticBackdropLabel">warning!</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            You must add <b>$${-1*initialAmount.toFixed(2)}</b> to your budget<br><br>
-                            Do you want to add <b>$${-1*initialAmount.toFixed(2)}</b> to your budget<br>
-                            Your budget will be: <b>$${(Number(latestStockData.Budgit)+(-1*initialAmount)).toFixed(2)}</b>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">No</button>
-                            <button onclick="increase_budget(${-1*initialAmount.toFixed(2)})" data-bs-dismiss="modal" type="button" class="btn btn-primary">Yes</button>
-                        </div>
-                        </div>
-                    </div>
-                </div>
-            `;
-          
-         // Set the modal HTML to the "alert" element
-         document.getElementById('alert').innerHTML = modalHTML2;
-        // alert(`Your budget has been adjusted to ${latestStockData.Budgit}`);
-        // Show the modal using JavaScript
-        const modal = new bootstrap.Modal(document.getElementById('exampleModal'));
-          modal.show();
-      }
-      localStorage.setItem("stockDataArray", JSON.stringify(stockDataArray));
+      if(initialAmount < Number(latestStockData.Budget)){
+            const modifiedBudget = (Number(latestStockData.Budget) - initialAmount).toFixed(2);
+            latestStockData.Budget = modifiedBudget; // Set the new budget
+            
+            const modalHTML2 = `
+                  <div class="modal fade" id="exampleModal2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                      <div class="modal-dialog">
+                          <div class="modal-content">
+                              <div class="modal-header">
+                                  <h1 class="modal-title fs-5" id="staticBackdropLabel">alert!</h1>
+                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                              </div>
+                              <div class="modal-body">
+                                Your budget has been adjusted to $${latestStockData.Budget}<br>
+                                Are you sure you want continue
+                              </div>
+                              <div class="modal-footer">
+                                <button data-bs-dismiss="modal" type="button" class="btn btn-primary">No</button>
+                                <button id="nextButton" data-bs-dismiss="modal" type="button" class="btn btn-primary">Yes</button>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              `;
 
-      // Redirect to the result page
-      window.location.href = "result.html";
+              // Set the modal HTML to the "alert" element
+              document.getElementById('alert').innerHTML = modalHTML2;
+
+              const modal = new bootstrap.Modal(document.getElementById('exampleModal2'));
+
+              // Add a click event listener to the "Next" button
+              document.getElementById('nextButton').addEventListener('click', function() {
+                  // This code will run when the "Next" button is clicked
+                  localStorage.setItem("stockDataArray", JSON.stringify(stockDataArray));
+                  window.location.href = "result.html";
+              });
+
+              modal.show();
+      }else{
+        localStorage.setItem("stockDataArray", JSON.stringify(stockDataArray));
+        // Redirect to the result page
+        window.location.href = "result.html";
+      }
+
     });
 
 
-    var initialAmount = Number(latestStockData.Budgit);
+    var initialAmount = Number(latestStockData.Budget);
     clickEventHandler();
 
     function clickEventHandler(){
-        initialAmount = latestStockData.Budgit;
+        initialAmount = latestStockData.Budget;
         latestStockData.data.forEach(stock => {
             const shareInput = document.getElementsByName(stock.symbol.trim())[0];
             if (shareInput) {
@@ -314,7 +321,7 @@
                         <div class="modal-body">
                             You must add <b>$${-1*initialAmount.toFixed(2)}</b> to your budget<br><br>
                             Do you want to add <b>$${-1*initialAmount.toFixed(2)}</b> to your budget<br>
-                            Your budget will be: <b>$${(Number(latestStockData.Budgit)+(-1*initialAmount)).toFixed(2)}</b>
+                            Your budget will be: <b>$${(Number(latestStockData.Budget)+(-1*initialAmount)).toFixed(2)}</b>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-danger" data-bs-dismiss="modal">No</button>
@@ -337,15 +344,15 @@
             document.getElementById('amount').innerHTML = `<span>You still have: $${Math.abs(initialAmount.toFixed(2))}</span>`;
     }
     function increase_budget(value){
-        latestStockData.Budgit = (Number(latestStockData.Budgit) + value).toFixed(2);
-        document.getElementById('Budget').innerHTML = `Budget: $${latestStockData.Budgit}`;
+        latestStockData.Budget = (Number(latestStockData.Budget) + value).toFixed(2);
+        document.getElementById('Budget').innerHTML = `Budget: $${latestStockData.Budget}`;
         localStorage.setItem("stockDataArray", JSON.stringify(stockDataArray));
-        initialAmount = Number(latestStockData.Budgit).toFixed(2);
+        initialAmount = Number(latestStockData.Budget).toFixed(2);
         document.getElementById('amount').innerHTML = `<span>You still have: $0.00</span>`;
     }
 
     function auto_fill(){
-        //let n = Number(latestStockData.Budgit);
+        //let n = Number(latestStockData.Budget);
         let sum = 0;
         let sum2 = 0;
         let min = latestStockData.data[0].price;
@@ -366,7 +373,7 @@
 
             sum2 = sum;
             while(1){
-                if((sum+sum2) < (Number(latestStockData.Budgit)+0.5)){
+                if((sum+sum2) < (Number(latestStockData.Budget)+0.5)){
                     sum+=sum2;
                     c++;
                 }
@@ -387,13 +394,13 @@
             const the_min_price = document.getElementsByName(latestStockData.data[index].symbol.trim())[0];
             console.log("the_min_price" + the_min_price.value);
             while(true){
-                if((((times+1)*latestStockData.data[index].price) + sum) <= (Number(latestStockData.Budgit)+0.1))
+                if((((times+1)*latestStockData.data[index].price) + sum) <= (Number(latestStockData.Budget)+0.1))
                     times+=1;
                 else
                     break;
             }
             console.log("times = " + times);
-            if(((times*Number(the_min_price.value)) + sum) <= Number(latestStockData.Budgit)){
+            if(((times*Number(the_min_price.value)) + sum) <= Number(latestStockData.Budget)){
                 let a = Number(the_min_price.value);
                 a+=times;
                 the_min_price.value = a;
@@ -401,7 +408,7 @@
         }
         else if(latestStockData.data.length == 1){
             let PRICE = Number(latestStockData.data[0].price);
-            let BUDGET = Number(latestStockData.Budgit);
+            let BUDGET = Number(latestStockData.Budget);
             k = PRICE;
             let j = 0;
             while((k+PRICE) <= (BUDGET+0.5)){
