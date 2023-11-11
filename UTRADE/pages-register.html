@@ -2,124 +2,282 @@
 <html lang="en" data-bs-theme="light">
 
 <head>
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>UTRADE</title>
-  <meta content="" name="description">
-  <meta content="" name="keywords">
+<title>UTRADE</title>
+<meta content="" name="description">
+<meta content="" name="keywords">
 
-  <!-- Favicons -->
-  <link href="assets/img/UTRADE_ICON-removebg-preview.png" rel="icon">
-  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+<!-- Favicons -->
+<link href="assets/img/UTRADE_ICON-removebg-preview.png" rel="icon">
+<link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
-  <!-- Google Fonts -->
-  <link href="https://fonts.gstatic.com" rel="preconnect">
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+<link href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
-  <!-- Vendor CSS Files -->
-  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+<!-- Vendor CSS Files -->
+<link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
 
-  <!-- Template Main CSS File -->
-  <link href="assets/css/style.css" rel="stylesheet">
+<!-- Template Main CSS File -->
+<link href="assets/css/style.css" rel="stylesheet">
 
-  <!-- =======================================================
-  * Template Name: NiceAdmin
-  * Updated: Sep 18 2023 with Bootstrap v5.3.2
-  * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+h1{
+    margin: 15px 0 25px;
+    text-align: center;
+    font-size: 30px;
+}
+input{
+    color:#022255 !important;
+}
+input[type=email]:focus,
+input[type=password]:focus,
+input[type=text]:focus{
+    box-shadow: 0 0 5px #226ebf;
+    border: 1px solid #226ebf;
+}
+.form-horizontal {
+    width: 320px;
+    background-color: #ffffff;
+    padding: 25px 38px;
+    border-radius: 12px;
+    box-shadow: 2px 2px 15px rgba(0,0,0,0.5);
+}
+.control-label {
+    text-align: left !important;
+    padding-bottom: 4px;
+}
+.progress {
+    height: 3px !important;
+}
+.form-group {
+    margin-bottom: 10px;
+}
+.show-pass{
+    position: absolute;
+    top:5%;
+    right: 8%;
+}
+.progress-bar-danger {
+    background-color: #e90f10;
+}
+.progress-bar-warning{
+    background-color: #ffad00;
+}
+.progress-bar-success{
+    background-color: #02b502;
+}
+.fa-check{
+    color: #02b502;
+}
+
+.low-upper-case, .one-number , .one-special-char , .eight-character {
+    font-size: 15px; /* Adjust the font size as needed */
+}
+
+</style>
 </head>
 
 <body>
 
-  <main>
-    <div class="container">
+<main>
+  <div class="container">
+    <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
 
-      <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
-        <div class="container">
-          <div class="row justify-content-center">
-            <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
+            <div class="d-flex justify-content-center py-4">
+              <a href="index.html" class="logo d-flex align-items-center w-auto">
+                <img src="assets/img/logo.png" alt="">
+              </a>
+            </div><!-- End Logo -->
 
-              <div class="d-flex justify-content-center py-4">
-                <a href="index.html" class="logo d-flex align-items-center w-auto">
-                  <img src="assets/img/logo.png" alt="">
-                </a>
-              </div><!-- End Logo -->
+            <div class="card mb-3">
 
-              <div class="card mb-3">
+              <div class="card-body">
 
-                <div class="card-body">
-
-                  <div class="pt-4 pb-2">
-                    <h5 class="card-title text-center pb-0 fs-4">Create an Account</h5>
-                    <p class="text-center small">Enter your personal details to create account</p>
-                  </div>
-
-                  <form class="row g-3 needs-validation" validate method="post" action="javascript:void(0)" onsubmit="redirectToInterests()">
-                    <div class="col-12">
-                        <label for="yourName" class="form-label">Your Name</label>
-                        <input type="text" name="name" class="form-control" id="yourName" required>
-                        <div class="invalid-feedback">Please, enter your name!</div>
-                    </div>
-                
-                    <div class="col-12">
-                        <label for="yourEmail" class="form-label">Your Email</label>
-                        <input type="email" name="email" class="form-control" id="yourEmail" required>
-                        <div class="invalid-feedback">Please enter a valid Email address!</div>
-                    </div>
-                
-                    <div class="col-12">
-                        <label for="yourPassword" class="form-label">Password</label>
-                        <input type="password" name="password" class="form-control" id="yourPassword" required>
-                        <div class="invalid-feedback">Please enter your password!</div>
-                    </div>
-                
-                    <div class="col-12">
-                        <button class="btn btn-primary w-100" type="submit">Create Account</button>
-                    </div>
-                
-                    <div class="col-12">
-                        <p class="small mb-0">Already have an account? <a href="pages-login.html">Log in</a></p>
-                    </div>
-                </form>
-                
-                <script>
-                    function redirectToInterests() {
-                        window.location.href = "interests.html";
-                    }
-                </script>
-                
-
+                <div class="pt-4 pb-2">
+                  <h5 class="card-title text-center pb-0 fs-4">Create an Account</h5>
+                  <p class="text-center small">Enter your personal details to create an account</p>
                 </div>
-              </div>
 
-              <div class="credits">
-                <!-- All the links in the footer should remain intact. -->
-                <!-- You can delete the links only if you purchased the pro version. -->
-                <!-- Licensing information: https://bootstrapmade.com/license/ -->
-                <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
+                <form class="row g-3 needs-validation" validate method="post" action="javascript:void(0)" onsubmit="redirectToInterests()">
+                  <div class="col-12">
+                      <label for="yourName" class="form-label">Your Name</label>
+                      <input type="text" name="name" class="form-control" id="yourName" required>
+                      <div class="invalid-feedback">Please, enter your name!</div>
+                  </div>
+              
+                  <div class="col-12">
+                      <label for="yourEmail" class="form-label">Your Email</label>
+                      <input type="email" name="email" class="form-control" id="yourEmail" required>
+                      <div class="invalid-feedback">Please enter a valid Email address!</div>
+                  </div>
+              
+                  <div class="col-12">
+                    <label for="password" class="form-label">Password</label>
+                    <input id="password" class="form-control input-md" name="password" type="password" placeholder="Enter your password" >
+                        <span class="show-pass" onclick="toggle()">
+                        </span>
+                        <div id="popover-password">
+                            <p><span id="result"></span></p>
+                            
+                            <ul class="list-unstyled">
+                                <li class="">
+                                    <span class="low-upper-case">
+                                        <i class="fas fa-circle" aria-hidden="true"></i>
+                                        &nbsp;Lowercase &amp; Uppercase
+                                    </span>
+                                </li>
+                                <li class="">
+                                    <span class="one-number">
+                                        <i class="fas fa-circle" aria-hidden="true"></i>
+                                        &nbsp;Number (0-9)
+                                    </span> 
+                                </li>
+                                <li class="">
+                                    <span class="one-special-char">
+                                        <i class="fas fa-circle" aria-hidden="true"></i>
+                                        &nbsp;Special Character (!@#$%^&*)
+                                    </span>
+                                </li>
+                                <li class="">
+                                    <span class="eight-character">
+                                        <i class="fas fa-circle" aria-hidden="true"></i>
+                                        &nbsp;Atleast 8 Character
+                                    </span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                  </div>
+              
+                  <div class="col-12">
+                      <button class="btn btn-primary w-100" type="submit">Create Account</button>
+                  </div>
+              
+                  <div class="col-12">
+                      <p class="small mb-0">Already have an account? <a href="pages-login.html">Log in</a></p>
+                  </div>
+              </form>
+              <script>
+                  function redirectToInterests() {
+                      window.location.href = "interests.html";
+                  }
+              </script>
               </div>
-
             </div>
           </div>
         </div>
+      </div>
+    </section>
+  </div>
+  <script>
+    let state = false;
+let password = document.getElementById("password");
+let passwordStrength = document.getElementById("password-strength");
+let lowUpperCase = document.querySelector(".low-upper-case i");
+let number = document.querySelector(".one-number i");
+let specialChar = document.querySelector(".one-special-char i");
+let eightChar = document.querySelector(".eight-character i");
 
-      </section>
+password.addEventListener("keyup", function(){
+    let pass = document.getElementById("password").value;
+    checkStrength(pass);
+});
 
-    </div>
-  </main><!-- End #main -->
+function toggle(){
+    if(state){
+        document.getElementById("password").setAttribute("type","password");
+        state = false;
+    }else{
+        document.getElementById("password").setAttribute("type","text")
+        state = true;
+    }
+}
 
-  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+function myFunction(show){
+    show.classList.toggle("fa-eye-slash");
+}
 
-  <!-- Vendor JS Files -->
-  <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+function checkStrength(password) {
+    let strength = 0;
 
-  <!-- Template Main JS File -->
-  <script src="assets/js/main.js"></script>
+    //If password contains both lower and uppercase characters
+    if (password.match(/([a-z].*[A-Z])|([A-Z].*[a-z])/)) {
+        strength += 1;
+        lowUpperCase.classList.remove('fa-circle');
+        lowUpperCase.classList.add('fa-check');
+    } else {
+        lowUpperCase.classList.add('fa-circle');
+        lowUpperCase.classList.remove('fa-check');
+    }
+    //If it has numbers and characters
+    if (password.match(/([0-9])/)) {
+        strength += 1;
+        number.classList.remove('fa-circle');
+        number.classList.add('fa-check');
+    } else {
+        number.classList.add('fa-circle');
+        number.classList.remove('fa-check');
+    }
+    //If it has one special character
+    if (password.match(/([!,%,&,@,#,$,^,*,?,_,~])/)) {
+        strength += 1;
+        specialChar.classList.remove('fa-circle');
+        specialChar.classList.add('fa-check');
+    } else {
+        specialChar.classList.add('fa-circle');
+        specialChar.classList.remove('fa-check');
+    }
+    //If password is greater than 7
+    if (password.length > 7) {
+        strength += 1;
+        eightChar.classList.remove('fa-circle');
+        eightChar.classList.add('fa-check');
+    } else {
+        eightChar.classList.add('fa-circle');
+        eightChar.classList.remove('fa-check');   
+    }
+
+    // If value is less than 2
+    if (strength < 2) {
+        passwordStrength.classList.remove('progress-bar-warning');
+        passwordStrength.classList.remove('progress-bar-success');
+        passwordStrength.classList.add('progress-bar-danger');
+        passwordStrength.style = 'width: 10%';
+    } else if (strength == 3) {
+        passwordStrength.classList.remove('progress-bar-success');
+        passwordStrength.classList.remove('progress-bar-danger');
+        passwordStrength.classList.add('progress-bar-warning');
+        passwordStrength.style = 'width: 60%';
+    } else if (strength == 4) {
+        passwordStrength.classList.remove('progress-bar-warning');
+        passwordStrength.classList.remove('progress-bar-danger');
+        passwordStrength.classList.add('progress-bar-success');
+        passwordStrength.style = 'width: 100%';
+    }
+}
+  </script>
+</main><!-- End #main -->
+
+<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+<!-- Vendor JS Files -->
+<script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
+<script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- Template Main JS File -->
+<script src="assets/js/main.js"></script>
 
 </body>
 

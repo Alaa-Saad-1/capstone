@@ -167,7 +167,7 @@
       <div class="container mt-5">
         <form id="stock-allocation-form" action="result.html">
           <!-- Retrieve the data array from localStorage -->
-          <h2>Number of shares:</h2>
+          <h3>Number of share stocks:</h3><br>
           <ul id="stock-allocations"></ul>
           <h5 id="Budget"></h5>
         
@@ -262,8 +262,8 @@
                                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                               </div>
                               <div class="modal-body">
-                                Your budget has been adjusted to $${latestStockData.Budget}<br>
-                                Are you sure you want continue
+                                Your initial budget has been adjusted to $${latestStockData.Budget}<br>
+                                Are you sure you want continue ?
                               </div>
                               <div class="modal-footer">
                                 <button data-bs-dismiss="modal" type="button" class="btn btn-primary">No</button>
@@ -319,8 +319,8 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            You must add <b>$${-1*initialAmount.toFixed(2)}</b> to your budget<br><br>
-                            Do you want to add <b>$${-1*initialAmount.toFixed(2)}</b> to your budget<br>
+                            You must add <b>$${-1*initialAmount.toFixed(2)}</b> to your initial budget<br><br>
+                            Do you want to add <b>$${-1*initialAmount.toFixed(2)}</b> to your initial budget?<br>
                             Your budget will be: <b>$${(Number(latestStockData.Budget)+(-1*initialAmount)).toFixed(2)}</b>
                         </div>
                         <div class="modal-footer">
@@ -345,7 +345,7 @@
     }
     function increase_budget(value){
         latestStockData.Budget = (Number(latestStockData.Budget) + value).toFixed(2);
-        document.getElementById('Budget').innerHTML = `Budget: $${latestStockData.Budget}`;
+        document.getElementById('Budget').innerHTML = `The initial budget: $${latestStockData.Budget}`;
         localStorage.setItem("stockDataArray", JSON.stringify(stockDataArray));
         initialAmount = Number(latestStockData.Budget).toFixed(2);
         document.getElementById('amount').innerHTML = `<span>You still have: $0.00</span>`;
@@ -367,10 +367,8 @@
                 }
                 k++;
             });
-
             console.log("index = " + index);
             console.log("k = " + k);
-
             sum2 = sum;
             while(1){
                 if((sum+sum2) < (Number(latestStockData.Budget)+0.5)){
@@ -382,14 +380,12 @@
             }
             console.log("sum = " + sum);
             console.log("c = " + c);
-
             latestStockData.data.forEach(stock => {
                 const shareInput = document.getElementsByName(stock.symbol.trim())[0];
                 if (shareInput) {
                     shareInput.value = c;
                 }
             });
-
             let times = 0;
             const the_min_price = document.getElementsByName(latestStockData.data[index].symbol.trim())[0];
             console.log("the_min_price" + the_min_price.value);
@@ -423,7 +419,6 @@
                 shareInput.value = a;
             }
         }
-           
         clickEventHandler();
     }
 
