@@ -358,6 +358,7 @@
         let min = latestStockData.data[0].price;
         let c = 1;
         let k = 0;
+        let index = 0;
         if(latestStockData.data.length != 1){
             latestStockData.data.forEach(stock => {
                 sum+= stock.price;

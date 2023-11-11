@@ -39,6 +39,11 @@
   .dark-blue {
       color: #003366;
   }
+  .image-small{
+    width: 25px;
+    /* background-color: rgb(161 161 161 / 74%); */
+    border-radius: 10px;
+}
 </style>
 
 <body onload="fetchStockNews_onload()">
@@ -196,6 +201,7 @@
                 <table class="table table-striped" id="table1">
                     <thead>
                         <tr>
+                            <th>Logo</th>
                             <th>Favorite</th>
                             <th class="symbol">Symbol</th>
                             <th>Company Name</th>
@@ -252,6 +258,7 @@
                       stocks.forEach(stock => {
                           const row = document.createElement('tr');
                           row.innerHTML = `
+                              <td><img src="https://fmpcloud.io/image-stock/${stock.symbol}.png" alt="${stock.name}" onerror="this.style.display='none'" class="image-small"></td>
                               <td><i class="fa ${favoriteStocks.includes(stock.symbol) ? 'fa-heart' : 'fa-heart-o'} favorite-icon"></i></td>
                               <td class="symbol dark-blue" style="font-weight: bold;"><span class="text-primary">${stock.symbol}</span></td>
                               <td>${stock.name}</td>
@@ -328,6 +335,7 @@
                                       <table class="table table-striped-columns" id="table2">
                                           <thead>
                                               <tr>
+                                                  <th>Logo</th>
                                                   <th>Favorite</th>
                                                   <th class="symbol">Symbol</th>
                                                   <th>Company Name</th>
@@ -438,6 +446,7 @@
                       if (favoriteStocks.includes(symbol))
                         icon = "fa-heart"
                       row.innerHTML = `
+                          <td><img src="https://fmpcloud.io/image-stock/${stocks[0].symbol}.png" alt="${stocks[0].name}" onerror="this.style.display='none'" class="image-small"></td>
                           <td><i class="fa ${icon} favorite-icon"></i></td>
                           <td class="symbol dark-blue" style="font-weight: bold;"><span class="text-primary">${stocks[0].symbol}</span></td>
                           <td>${stocks[0].name}</td>
@@ -456,6 +465,7 @@
                       if (favoriteStocks.includes(symbol))
                         icon = "fa-heart"
                       row.innerHTML = `
+                          <td><img src="https://fmpcloud.io/image-stock/${stocks[0].symbol}.png" alt="${stocks[0].name}" onerror="this.style.display='none'" class="image-small"></td>
                           <td><i class="fa ${icon} favorite-icon"></i></td>
                           <td class="symbol dark-blue" style="font-weight: bold;"><span class="text-primary">${stocks[0].symbol}</span></td>
                           <td>${stocks[0].name}</td>

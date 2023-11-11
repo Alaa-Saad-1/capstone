@@ -224,7 +224,10 @@
 
       document.getElementById("stock-selection-form").addEventListener("submit", function (e) {
           e.preventDefault();
-          const stockSymbols = document.getElementById("stock-symbols").value.split(",");
+
+          const stockSymbols = (document.getElementById("stock-symbols").value.replace(/\s/g, "")).split(",");
+          const uniqueStockSymbols = [...new Set(stockSymbols)]; // Remove duplicate symbols
+
           const dueDate = document.getElementById("due-date").value;
           const initialAmount = document.getElementById("initial-amount").value;
 
@@ -238,20 +241,21 @@
             FromDate: formDate,
             DueDate: dueDate,
             Budget: initialAmount,
+            FinalAmount: "0",
             data:[]
           }
           // Fetch the price for each symbol from the API
           const apiUrl = `https://financialmodelingprep.com/api/v3/quote-order/`;
-          const apiKey = 'k0wOZwaeBqPBeeutNskntC6QdhCCK4WY'; // Replace with your API key
+          const apiKey = 'DZdHINhAKeEnsE6yDLBYFVI9lWOvPcLI'; // Replace with your API key
   
           // Use a promise to ensure all API requests are completed before redirecting
-          const fetchSymbolDataPromises = stockSymbols.map(symbol => {
+          const fetchSymbolDataPromises = uniqueStockSymbols.map(symbol => {
               return fetch(`${apiUrl}${symbol}?apikey=${apiKey}`)
                   .then(response => response.json())
                   .then(data => {
                       const sharePrice = data[0].price;
                       // Create an object for each symbol with 1 share and the price
-                      const symbolData = { symbol: symbol, shares: 1, price: Number(sharePrice) };
+                      const symbolData = { symbol: symbol, shares: 1, price: Number(sharePrice), finalPrice: 0 };
                       trade.data.push(symbolData);
                   });
           });
