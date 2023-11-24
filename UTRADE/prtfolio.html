@@ -104,6 +104,14 @@
   .my-widget-container {
     overflow: hidden; /* Prevent iframes from overflowing */
   }
+  .edit_icon{
+    padding: 7px;
+    background-color: #ecf1f9;
+    border-radius: 10px;
+  }
+  .edit_icon:hover{
+    color: red;
+  }
   </style>
 </head>
 
@@ -113,7 +121,7 @@
 
     <div class="d-flex align-items-center justify-content-between">
       <i class="bi bi-list toggle-sidebar-btn" style="margin-left: -20px;"></i>
-      <a href="index.html" class="logo d-flex align-items-center">
+      <a href="prtfolio.html" class="logo d-flex align-items-center">
         <img src="assets/img/logo.png" alt="logo" style="padding-left: 40px;">
       </a>
     </div><!-- End Logo -->
@@ -177,7 +185,7 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link " href="index.html">
+        <a class="nav-link " href="prtfolio.html">
           <i class="bi bi-grid"></i>
           <span>Home</span>
         </a>
@@ -233,7 +241,7 @@
         <h1 style="color:rgb(33, 33, 190)"><b>Your prtfolio</b></h1>
         <div>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item"><a href="prtfolio.html">Home</a></li>
             </ol>
         </div>
     </div>
@@ -299,7 +307,26 @@
           </div><!-- End Revenue Card -->
         </div>
 
-        
+        <!-- Wallet Card -->
+        <div class="col-lg-3 col-sm-6">
+          <div class="card info-card revenue-card">
+              <div class="card-body">
+                  <button class="edit-button btn btn-link float-end" id="editButton">
+                    <i style="margin-right: -25px;" class="fas fa-pencil-alt edit_icon"></i>
+                  </button>
+                  <h5 style="margin-left: 45px;"class="card-title CARD_titles">Wallet:
+                  </h5>
+                  <div class="d-flex align-items-center">
+                      <div class="ps-3" style="display: flex;">
+                          <h6 id="wallet" contenteditable="false">0</h6>
+                          <h6 style="margin-right: 10px;">$</h6>
+                      </div>
+                    <button class="btn btn-primary float-end" id="saveButton" style="display:none; margin-left: auto;">SAVE</button>
+                  </div>
+              </div>
+          </div>
+        </div>
+
 
       </div>
 
@@ -312,6 +339,25 @@
 
         
 
+      </div>
+    </div>
+
+    <!-- Edit Modal For Wallet-->
+    <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title" id="editModalLabel">Confirm Edit</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                  Are you sure you want to change the amount of money in your wallet?
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="NO_BTN">No</button>
+                  <button type="button" class="btn btn-primary" id="confirmEdit">Yes</button>
+              </div>
+          </div>
       </div>
     </div>
 
@@ -581,6 +627,69 @@
       calculateSum(parsedData);
 
   
+    });
+  </script>
+
+  <!-- WALLET SCRIPT -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const wallet = localStorage.getItem('wallet')||0;
+
+        document.getElementById('wallet').innerText = wallet;
+
+        document.getElementById('NO_BTN').addEventListener('click', () => {
+            document.getElementById('saveButton').style.display = 'none';
+        });
+
+        // Add click event to the edit button
+        document.getElementById('editButton').addEventListener('click', function () {
+            var current_wallet = document.getElementById('wallet');
+
+            // Make the content editable
+            current_wallet.contentEditable = true;
+            current_wallet.focus();
+
+            // Show the save button
+            document.getElementById('saveButton').style.display = 'inline';
+        });
+
+        // Add click event to the save button
+        document.getElementById('saveButton').addEventListener('click', function () {
+            // Show the edit modal
+            let now_wallet = document.getElementById('wallet').innerText;
+            console.log(now_wallet);
+            if (Number(wallet) !== Number(now_wallet)) {
+                var editModal = new bootstrap.Modal(document.getElementById('editModal'), {});
+                editModal.show();
+            } else {
+                document.getElementById('saveButton').style.display = 'none';
+            }
+
+        });
+
+        // Listen for the confirmEdit button click
+        document.getElementById('confirmEdit').addEventListener('click', function () {
+            var current_wallet = document.getElementById('wallet');
+
+            // Disable content editing
+            current_wallet.contentEditable = false;
+
+            // Save the new value to localStorage
+            var newValue = current_wallet.innerText;
+            localStorage.setItem('wallet', newValue);
+
+            // If the new value is empty, revert to the original value
+            if (newValue.trim() === '') {
+                current_wallet.innerText = originalValue;
+            }
+
+            // Hide the save button
+            document.getElementById('saveButton').style.display = 'none';
+
+            // Close the modal
+            var editModal = bootstrap.Modal.getInstance(document.getElementById('editModal'));
+            editModal.hide();
+        });
     });
   </script>
   
