@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>UTRADE</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="assets/img/UTRADE_ICON-removebg-preview.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.gstatic.com" rel="preconnect">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="assets/css/style.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+
+  <!-- =======================================================
+  * Template Name: NiceAdmin
+  * Updated: Sep 18 2023 with Bootstrap v5.3.2
+  * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->  
+  <style>
+  main .card:hover {
+    transform: scale(1.05); 
+  }
+
+  .btn{
+    margin-right: 10px;
+  }
+
+  main {
+  text-align: center;
+}
+
+/* .modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      display: none;
+    }
+
+    .modal-content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 950px;
+      height: 570px;
+      background-color: white;
+      padding: 20px;
+    }
+
+    .modal-header {
+      border-bottom: 1px solid black;
+    }
+
+    .modal-body {
+      padding-top: 20px;
+    }
+
+    .modal-footer {
+      text-align: right;
+    } */
+
+    .delete-btn {
+        margin-top: 5px;
+        position: absolute;
+        top: 0;
+        right: 0;
+        font-size: smaller;
+        border: none;
+        color: gray;
+    }
+    .CARD_titles{
+      color:rgb(33, 33, 190);
+    }
+    .modal-dialog {
+      max-width: none; 
+      margin-right: 10%; 
+      margin-left: 10%; 
+      /*adjust size of modal*/
+  }
+  .My_modal-body{
+    padding: 3%;
+    background-color :#eef2fa;
+  }
+  .my-widget-container {
+    overflow: hidden; /* Prevent iframes from overflowing */
+  }
+  .edit_icon{
+    padding: 7px;
+    background-color: #ecf1f9;
+    border-radius: 10px;
+  }
+  .edit_icon:hover{
+    color: red;
+  }
+  </style>
+</head>
+
+<body>
+  <!-- ======= Header ======= -->
+  <header id="header" class="header fixed-top d-flex align-items-center">
+
+    <div class="d-flex align-items-center justify-content-between">
+      <i class="bi bi-list toggle-sidebar-btn" style="margin-left: -20px;"></i>
+      <a href="index.html" class="logo d-flex align-items-center">
+        <img src="assets/img/logo.png" alt="logo" style="padding-left: 40px;">
+      </a>
+    </div><!-- End Logo -->
+
+    <nav class="header-nav ms-auto">
+      <ul class="d-flex align-items-center">
+
+        <li class="nav-item d-block d-lg-none">
+          <a class="nav-link nav-icon search-bar-toggle " href="#">
+          </a>
+        </li><!-- End Search Icon-->
+
+        <li class="nav-item dropdown pe-3">
+
+          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+            <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
+            <span class="d-none d-md-block dropdown-toggle ps-2">UserName</span>
+          </a><!-- End Profile Iamge Icon -->
+
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+            <li class="dropdown-header">
+              <h6>UserName</h6>
+              <br>
+            </li>
+          <li>
+              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+                <i class="bi bi-person"></i>
+                <span>My Profile</span>
+              </a>
+            </li>
+            <li>
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
+                <i class="bi bi-question-circle"></i>
+                <span>Need Help?</span>
+              </a>
+            </li>
+            <li>
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="#">
+                <i class="bi bi-box-arrow-right"></i>
+                <span>Sign Out</span>
+              </a>
+            </li>
+
+          </ul><!-- End Profile Dropdown Items -->
+        </li><!-- End Profile Nav -->
+
+      </ul>
+    </nav><!-- End Icons Navigation -->
+
+  </header><!-- End Header -->
+
+<!-- ======= Sidebar ======= -->
+<aside id="sidebar" class="sidebar">
+
+  <ul class="sidebar-nav" id="sidebar-nav">
+
+  <li class="nav-item">
+      <a class="nav-link " href="portfolio.html">
+      <i class="bi bi-grid"></i>
+      <span>Portfolio</span>
+      </a>
+  </li><!-- End Dashboard Nav -->
+
+  <li class="nav-item">
+      <a class="nav-link collapsed" href="fav.html">
+      <i class="bi bi-heart"></i>
+      <span>Favorite</span>
+      </a>
+  </li><!-- End fav Page Nav -->
+
+  <li class="nav-item">
+      <a class="nav-link collapsed" href="news.html">
+      <i class="bi bi-newspaper"></i>
+      <span>News</span>
+      </a>
+  </li><!-- End News le Page Nav -->
+
+  <li class="nav-item">
+      <a class="nav-link collapsed" href="search.html">
+      <i class="bi bi-currency-dollar"></i>
+      <span>Stocks</span>
+      </a>
+  </li><!-- End Stocks le Page Nav -->
+
+  <li class="nav-item">
+      <a class="nav-link collapsed" href="trade.html">
+      <i class="bi bi-arrow-up-right-circle-fill"></i>
+      <span>Trade</span>
+      </a>
+  </li><!-- End Contact Page Nav -->
+
+  <li class="nav-item">
+      <a class="nav-link collapsed" href="pages-register.html">
+      <i class="bi bi-card-list"></i>
+      <span>Register</span>
+      </a>
+  </li><!-- End Register Page Nav -->
+
+  </ul>
+
+</aside><!-- End Sidebar-->
+
+  <main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1 style="color:rgb(33, 33, 190); margin-bottom: 30px; margin-top: 13px;"><b>Your Portfolio</b></h1>
+    </div>
+    <!-- End Page Title -->
+
+    <section class="section dashboard">
+
+      <div class="row">
+
+        <!-- Revenue Card -->
+        <div class="col-lg-3 col-sm-6">
+            <div class="card info-card revenue-card">
+                <div class="card-body">
+                    <h5 class="card-title CARD_titles">Total plans:</h5>
+                    <div class="d-flex align-items-center">
+                        <div class="ps-3">
+                            <h6 id="Total_plans">0</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Revenue Card -->
+        <div class="col-lg-3 col-sm-6">
+          <div class="card info-card revenue-card">
+            <div class="card-body">
+                <h5 class="card-title CARD_titles">Amount of gain/lose:</h5>
+                <div class="d-flex align-items-center">
+                    <div class="ps-3">
+                        <h6 id="gain_lose">0$</h6>
+                    </div>
+                </div>
+            </div>
+          </div><!-- End Revenue Card -->
+        </div>
+
+        <!-- Revenue Card -->
+        <div class="col-lg-3 col-sm-6">
+          <div class="card info-card revenue-card">
+              <div class="card-body">
+                  <h5 class="card-title CARD_titles">Initial Budget:</h5>
+                  <div class="d-flex align-items-center">
+                      <div class="ps-3">
+                          <h6 id="Sum_Budgets">0$</h6>
+                      </div>
+                  </div>
+              </div>
+          </div><!-- End Revenue Card -->
+        </div>
+
+        <!-- Revenue Card -->
+        <div class="col-lg-3 col-sm-6">
+          <div class="card info-card revenue-card">
+              <div class="card-body">
+                  <h5 class="card-title CARD_titles">Current Budget:</h5>
+                  <div class="d-flex align-items-center">
+                      <div class="ps-3">
+                          <h6 id="Total_Money_Now">0$</h6>
+                      </div>
+                  </div>
+              </div>
+          </div><!-- End Revenue Card -->
+        </div>
+
+        <!-- Wallet Card -->
+        <div class="col-lg-3 col-sm-6">
+          <div class="card info-card revenue-card">
+              <div class="card-body">
+                  <button class="edit-button btn btn-link float-end" id="editButton">
+                    <i style="margin-right: -25px;" class="fas fa-pencil-alt edit_icon"></i>
+                  </button>
+                  <h5 style="margin-left: 45px;"class="card-title CARD_titles">Wallet:
+                  </h5>
+                  <div class="d-flex align-items-center">
+                      <div class="ps-3" style="display: flex;">
+                          <h6 id="wallet" contenteditable="false">0</h6>
+                          <h6 style="margin-right: 10px;">$</h6>
+                      </div>
+                    <button class="btn btn-primary float-end" id="saveButton" style="display:none; margin-left: auto;">SAVE</button>
+                  </div>
+              </div>
+          </div>
+        </div>
+
+
+      </div>
+
+    </section>
+    
+    <hr>
+
+    <div class="card-container py-5">
+      <div class="row" id="cardContainer">
+
+        
+
+      </div>
+    </div>
+
+    <!-- Edit Modal For Wallet-->
+    <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title" id="editModalLabel">Confirm Edit</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                  Are you sure you want to change the amount of money in your wallet?
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="NO_BTN">No</button>
+                  <button type="button" class="btn btn-primary" id="confirmEdit">Yes</button>
+              </div>
+          </div>
+      </div>
+    </div>
+
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer" class="footer" style="margin-top: 250px;">
+    <div class="copyright">
+      <a href="#">&copy; Copyright <strong><span>UTRADE</span></strong>.</a>
+    </div>
+    <div class="credits">
+      <!-- All the links in the footer should remain intact. -->
+      <!-- You can delete the links only if you purchased the pro version. -->
+      <!-- Licensing information: https://bootstrapmade.com/license/ -->
+      <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
+    </div>
+  </footer><!-- End Footer -->
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+    <!-- Vendor JS Files -->
+    <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
+    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/vendor/chart.js/chart.umd.js"></script>
+    <script src="assets/vendor/echarts/echarts.min.js"></script>
+    <script src="assets/vendor/quill/quill.min.js"></script>
+    <script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
+    <script src="assets/vendor/tinymce/tinymce.min.js"></script>
+    <script src="assets/vendor/php-email-form/validate.js"></script>
+
+    <!-- Template Main JS File -->
+  <script src="assets/js/main.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      // 1. Retrieve data from local storage
+      const parsedData = JSON.parse(localStorage.getItem('stockDataArray')) || [];
+  
+      // 2. Create card elements dynamically
+      const cardContainer = document.getElementById('cardContainer');
+      const modal = createModal();
+      document.body.appendChild(modal);
+  
+      var index = 0;
+      if (parsedData) {
+        parsedData.forEach(item => {
+          const card = createCardElement(item);
+          cardContainer.appendChild(card);
+          index++;
+        });
+      }
+  
+      function createCardElement(data) {
+        const cardDiv = document.createElement('div');
+        cardDiv.classList.add('col-lg-4', 'col-md-6', 'col-sm-12');
+        cardDiv.id = data.cardId;
+  
+        cardDiv.innerHTML = `
+        <div class="card">
+          <div class="card-body">
+            <br>
+            <button type="button" class="btn btn-outline-danger delete-btn" onclick="deleteCard('${data.cardId}')">
+              <i class="fas fa-trash-alt"></i>
+            </button>
+            <h3 class="CARD_titles">Plan</h3>
+            <p><small>start: ${data.FromDate}</small></p>
+            <p><small>end: ${data.DueDate}</small></p>
+            <a href="#" class="btn btn-primary show-modal-btn" onclick="showDetails(${index})">Show Details</a>
+          </div>
+        </div>
+        `;
+  
+        return cardDiv;
+      }
+  
+      function createModal() {
+        const modalDiv = document.createElement('div');
+        modalDiv.classList.add('modal', 'fade');
+        modalDiv.id = 'staticBackdrop';
+        modalDiv.setAttribute('data-bs-backdrop', 'static');
+        modalDiv.setAttribute('data-bs-keyboard', 'false');
+        modalDiv.setAttribute('tabindex', '-1');
+        modalDiv.setAttribute('aria-labelledby', 'staticBackdropLabel');
+        modalDiv.setAttribute('aria-hidden', 'true');
+  
+        modalDiv.innerHTML = `
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body My_modal-body" id="modal_content">
+                <!-- Content will be dynamically populated -->
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        `;
+  
+        return modalDiv;
+      }
+  
+      window.showDetails = function(data_index) {
+        const data = parsedData[data_index];
+        const modalContent = document.getElementById('modal_content');
+
+        let symbolsString = '';
+        let pricesString = '';
+        let symbolsString_WithShares = '';
+        let sumOfPrices = 0;
+
+        // Use Promise.all to fetch real-time prices for all symbols concurrently
+        Promise.all(data.data.map(stock => getNowPrice(stock.symbol)))
+            .then(prices => {
+                // Iterate through each stock and calculate the sum of shares * real-time prices
+                data.data.forEach((stock, index) => {
+                    const nowPrice = prices[index];
+                    const totalPrice = stock.shares * nowPrice;
+                    sumOfPrices += totalPrice;
+
+                    symbolsString += `${stock.symbol}, `;
+                    pricesString += `${nowPrice}, `;
+                    symbolsString_WithShares += `${stock.symbol} (${stock.shares} shares), `;
+                });
+
+                // Remove the trailing comma and space
+                symbolsString = symbolsString.slice(0, -2);
+                pricesString = pricesString.slice(0, -2);
+                symbolsString_WithShares = symbolsString_WithShares.slice(0, -2);
+                
+
+                // Update modal content with the sum of prices
+                /*_____________________________________________________________________________________________*/
+                modalContent.innerHTML = `
+                    <p>Stocks: ${symbolsString}</p>
+                    <p>Start Date: ${data.FromDate}</p>
+                    <p>End Date: ${data.DueDate}</p>
+                    <p>Initial Amount: $${data.Budget}</p>
+                    <p>Total Price Now: $${sumOfPrices.toFixed(2)}</p>
+                    <p>Shares per stock: ${symbolsString_WithShares}</p>
+                    <p>Our Total Predict: $${data.FinalAmount}</p>
+
+
+                `;
+                /*_____________________________________________________________________________________________*/
+                // Create iframes for each stock
+                let S_prices = pricesString.split(',');
+                let counter = 0;
+                data.data.forEach((stock) => {
+                    const uniqueId = `tradingview_${stock.symbol}`;
+                    const widgetContainer = document.createElement('div');
+                    widgetContainer.classList.add('tradingview-widget-container', 'my-widget-container'); // Add a custom class for styling
+                    widgetContainer.style.height = '650px';
+                    widgetContainer.style.width = '100%';
+                /*_____________________________________________________________________________________________*/
+                    widgetContainer.innerHTML = `
+                        <br>
+                        <div class="container">
+                          <h2>${counter+1}. Symbol: ${stock.symbol}</h2>
+                          <p>Shares: ${stock.shares}</p>
+                          <p>Initial Price: $${stock.price}</p>
+                          <p>Initial SharesxPrice: ${stock.shares} x ($${stock.price}) = $${stock.shares*stock.price}</p>
+                          <p>Now Price: $${S_prices[counter++]}</p>
+                          <p>Our Preddict: $${stock.finalPrice}</p>
+
+
+                          <div class="tradingview-widget-container" style="height: 500px; width: 100%;">
+                            <div id="${uniqueId}" style="height: 100%; width: 100%;"></div>
+                          </div>
+                        </div>
+                    `;
+                /*_____________________________________________________________________________________________*/
+
+                    modalContent.appendChild(widgetContainer);
+
+                    const script = document.createElement('script');
+                    script.type = 'text/javascript';
+                    script.src = 'https://s3.tradingview.com/tv.js';
+                    script.onload = function () {
+                        const tradingViewScript = document.createElement('script');
+                        tradingViewScript.type = 'text/javascript';
+                        tradingViewScript.textContent = `
+                            new TradingView.widget({
+                                "autosize": true,
+                                "symbol": "NASDAQ:${stock.symbol}",
+                                "interval": "D",
+                                "timezone": "Etc/UTC",
+                                "theme": "light",
+                                "style": "1",
+                                "locale": "en",
+                                "enable_publishing": false,
+                                "allow_symbol_change": true,
+                                "container_id": "${uniqueId}"
+                            });
+                        `;
+
+                        modalContent.appendChild(tradingViewScript);
+                    };
+
+                    modalContent.appendChild(script);
+                });
+            })
+            .catch(error => {
+                console.error('Error fetching real-time prices:', error);
+                // Handle the error if needed
+            });
+
+        // Show the modal
+        const modal = new bootstrap.Modal(document.getElementById('staticBackdrop'));
+        modal.show();
+    };
+
+
+
+
+      document.getElementById('Total_plans').textContent = parsedData.length;
+
+      let totalBudget = parsedData.reduce((sum, obj) => sum + parseFloat(Number(obj.Budget)), 0);
+      document.getElementById('Sum_Budgets').textContent = `${totalBudget.toFixed(2)}$`;
+
+      const apiUrl = 'https://financialmodelingprep.com/api/v3/quote-order/';
+      const apiKey = 'hyVSthYNOyrZg6X0L6B19DBYXUP5JDyJ';
+
+      // Function to get the NowPrice of a symbol
+      function getNowPrice(symbol) {
+        return fetch(`${apiUrl}${symbol}?apikey=${apiKey}`)
+          .then(response => response.json())
+          .then(data => data[0].price)
+          .catch(error => {
+            console.error(`Error fetching data for ${symbol}:`, error);
+            return 0; // Return 0 if there's an error
+          });
+      }
+
+      // Function to calculate the sum of (shares * NowPrice) for all objects in arr
+      async function calculateSum(arr) {
+        let sum = 0;
+
+        for (const obj of arr) {
+          for (const stock of obj.data) {
+            const nowPrice = await getNowPrice(stock.symbol);
+            sum += stock.shares * nowPrice;
+          }
+        }
+
+        console.log('Sum:', sum);
+        document.getElementById('Total_Money_Now').textContent= `${sum.toFixed(2)}$`;
+
+        const gainLoseElement = document.getElementById('gain_lose');
+        const difference = sum - totalBudget;
+
+        if (Math.trunc(difference) < 0) {
+          gainLoseElement.textContent = `${difference.toFixed(2)}$`;
+          gainLoseElement.style.color = 'red';
+        } else if (Math.trunc(difference) > 0) {
+          gainLoseElement.textContent = `+${difference.toFixed(2)}$`;
+          gainLoseElement.style.color = 'green';
+        } else {
+          gainLoseElement.textContent = `${difference.toFixed(2)}$`;
+          gainLoseElement.style.color = 'rgb(1 41 112)';
+        };
+      }
+
+      // Example usage
+      calculateSum(parsedData);
+
+  
+    });
+  </script>
+
+  <!-- WALLET SCRIPT -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const wallet = localStorage.getItem('wallet')||0;
+
+        document.getElementById('wallet').innerText = wallet;
+
+        document.getElementById('NO_BTN').addEventListener('click', () => {
+            document.getElementById('saveButton').style.display = 'none';
+        });
+
+        // Add click event to the edit button
+        document.getElementById('editButton').addEventListener('click', function () {
+            var current_wallet = document.getElementById('wallet');
+
+            // Make the content editable
+            current_wallet.contentEditable = true;
+            current_wallet.focus();
+
+            // Show the save button
+            document.getElementById('saveButton').style.display = 'inline';
+        });
+
+        // Add click event to the save button
+        document.getElementById('saveButton').addEventListener('click', function () {
+            // Show the edit modal
+            let now_wallet = document.getElementById('wallet').innerText;
+            console.log(now_wallet);
+            if (Number(wallet) !== Number(now_wallet)) {
+                var editModal = new bootstrap.Modal(document.getElementById('editModal'), {});
+                editModal.show();
+            } else {
+                document.getElementById('saveButton').style.display = 'none';
+            }
+
+        });
+
+        // Listen for the confirmEdit button click
+        document.getElementById('confirmEdit').addEventListener('click', function () {
+            var current_wallet = document.getElementById('wallet');
+
+            // Disable content editing
+            current_wallet.contentEditable = false;
+
+            // Save the new value to localStorage
+            var newValue = current_wallet.innerText;
+            localStorage.setItem('wallet', newValue);
+
+            // If the new value is empty, revert to the original value
+            if (newValue.trim() === '') {
+                current_wallet.innerText = originalValue;
+            }
+
+            // Hide the save button
+            document.getElementById('saveButton').style.display = 'none';
+
+            // Close the modal
+            var editModal = bootstrap.Modal.getInstance(document.getElementById('editModal'));
+            editModal.hide();
+        });
+    });
+  </script>
+  
+</body>
+</html>
+
+<!-- 
+// const modalContent = document.getElementById('modal-body');
+        // modalContent.innerHTML = `
+        //   <p>Stock chosen: ${data.stockChosen}</p>
+        //   <p>Due date: ${data.DueDate}</p>
+        //   <p>Initial amount: ${data.initialAmount}</p>
+        //   <p>Stock price now: ${data.stockPriceNow}</p>
+        //   <p>Chart</p>
+        //   <p>Our prediction: ${data.ourPrediction}</p>
+        //   <p>Other predictions: ${data.otherPredictions}</p>
+        // `; 
+-->
