@@ -39,7 +39,7 @@
 
     <div class="d-flex align-items-center justify-content-between">
       <i class="bi bi-list toggle-sidebar-btn" style="margin-left: -20px;"></i>
-      <a href="prtfolio.html" class="logo d-flex align-items-center">
+      <a href="portfolio.html" class="logo d-flex align-items-center">
         <img src="assets/img/logo.png" alt="logo" style="padding-left: 40px;">
       </a>
     </div><!-- End Logo -->
@@ -103,7 +103,7 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link " href="prtfolio.html">
+        <a class="nav-link " href="portfolio.html">
           <i class="bi bi-grid"></i>
           <span>Home</span>
         </a>
@@ -158,7 +158,7 @@
         <h1>Test Your Plan:</h1>
         <nav>
           <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="prtfolio.html">Home</a></li>
+            <li class="breadcrumb-item"><a href="portfolio.html">Home</a></li>
             <li class="breadcrumb-item active">Trade</li>
           </ol>
         </nav>
@@ -224,7 +224,7 @@
         let first_value = (wallet4+Number(latestStockData.Budget)).toFixed(2);
         localStorage.setItem('wallet', first_value)
 
-        window.location.href = "prtfolio.html";
+        window.location.href = "portfolio.html";
     })
 
     var inner = "";
@@ -249,71 +249,84 @@
 
       clickEventHandler2()
       console.log(Math.abs(Math.ceil(returned_value2)));
+
+      let isNoShares = true;
+      latestStockData.data.forEach(stock => {
+            const shareInput = document.getElementsByName(stock.symbol.trim())[0];
+            if (Number(shareInput.value)) {
+              isNoShares = false;
+            }
+        });
       
-      if(Math.ceil(returned_value2) < 0 && Math.abs(Math.ceil(returned_value2)) != 0){
-        clickEventHandler();
-        console.log('if');
+      if(isNoShares){
+        alert("At least you should select one share");
       }
       else{
-        latestStockData.data.forEach(stock => {
-          const shareInput = document.getElementsByName(stock.symbol.trim())[0];
-          if (shareInput) {
-            const sharesNo = shareInput.value;
-            latestStockData.data[i++].shares = Number(sharesNo);
+        if(Math.ceil(returned_value2) < 0 && Math.abs(Math.ceil(returned_value2)) != 0){
+          clickEventHandler();
+          console.log('if');
+        }
+        else{
+          latestStockData.data.forEach(stock => {
+            const shareInput = document.getElementsByName(stock.symbol.trim())[0];
+            if (shareInput) {
+              const sharesNo = shareInput.value;
+              latestStockData.data[i++].shares = Number(sharesNo);
+            }
+          });
+
+          i=0;
+          // Update the stockDataArray in localStorage with the updated data
+          if(initialAmount < Number(latestStockData.Budget)){
+                const modifiedBudget = (Number(latestStockData.Budget) - initialAmount).toFixed(2);
+                latestStockData.Budget = modifiedBudget; // Set the new budget
+                
+                const modalHTML2 = `
+                      <div class="modal fade" id="exampleModal2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                          <div class="modal-dialog">
+                              <div class="modal-content">
+                                  <div class="modal-header">
+                                      <h1 class="modal-title fs-5" id="staticBackdropLabel">alert!</h1>
+                                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                  </div>
+                                  <div class="modal-body">
+                                    Your budget has been adjusted to $${latestStockData.Budget}<br>
+                                    The remaining money from the budget will be returned to your wallet<br><br>
+                                    Are you sure you want continue
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button data-bs-dismiss="modal" type="button" class="btn btn-primary">No</button>
+                                    <button id="nextButton" data-bs-dismiss="modal" type="button" class="btn btn-primary">Yes</button>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  `;
+
+                  // Set the modal HTML to the "alert" element
+                  document.getElementById('alert').innerHTML = modalHTML2;
+
+                  const modal = new bootstrap.Modal(document.getElementById('exampleModal2'));
+
+                  // Add a click event listener to the "Next" button
+                  document.getElementById('nextButton').addEventListener('click', function() {
+
+                      //const wallet3 = Number(localStorage.getItem('wallet'));
+                      localStorage.setItem('wallet', ((Number(initialBudget)+(Math.abs(Number(returned_value2)))).toFixed(2)));
+                      console.log("initialBudget" + initialBudget);
+                      console.log("return value" + Math.abs(Number(returned_value2)));
+                      localStorage.setItem("stockDataArray", JSON.stringify(stockDataArray));
+                      window.location.href = "result.html";
+                      console.log('else in');
+                  });
+
+                  modal.show();
+          }else{
+            localStorage.setItem("stockDataArray", JSON.stringify(stockDataArray));
+            // Redirect to the result page
+            window.location.href = "result.html";
+            console.log('else');
           }
-        });
-
-        i=0;
-        // Update the stockDataArray in localStorage with the updated data
-        if(initialAmount < Number(latestStockData.Budget)){
-              const modifiedBudget = (Number(latestStockData.Budget) - initialAmount).toFixed(2);
-              latestStockData.Budget = modifiedBudget; // Set the new budget
-              
-              const modalHTML2 = `
-                    <div class="modal fade" id="exampleModal2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="staticBackdropLabel">alert!</h1>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                  Your budget has been adjusted to $${latestStockData.Budget}<br>
-                                  The remaining money from the budget will be returned to your wallet<br><br>
-                                  Are you sure you want continue
-                                </div>
-                                <div class="modal-footer">
-                                  <button data-bs-dismiss="modal" type="button" class="btn btn-primary">No</button>
-                                  <button id="nextButton" data-bs-dismiss="modal" type="button" class="btn btn-primary">Yes</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                `;
-
-                // Set the modal HTML to the "alert" element
-                document.getElementById('alert').innerHTML = modalHTML2;
-
-                const modal = new bootstrap.Modal(document.getElementById('exampleModal2'));
-
-                // Add a click event listener to the "Next" button
-                document.getElementById('nextButton').addEventListener('click', function() {
-
-                    //const wallet3 = Number(localStorage.getItem('wallet'));
-                    localStorage.setItem('wallet', ((Number(initialBudget)+(Math.abs(Number(returned_value2)))).toFixed(2)));
-                    console.log("initialBudget" + initialBudget);
-                    console.log("return value" + Math.abs(Number(returned_value2)));
-                    localStorage.setItem("stockDataArray", JSON.stringify(stockDataArray));
-                    window.location.href = "result.html";
-                    console.log('else in');
-                });
-
-                modal.show();
-        }else{
-          localStorage.setItem("stockDataArray", JSON.stringify(stockDataArray));
-          // Redirect to the result page
-          window.location.href = "result.html";
-          console.log('else');
         }
       }
 
@@ -486,6 +499,25 @@
 
     document.getElementById('check-button').addEventListener('click',clickEventHandler);
   }
+
+
+  // Add an entry to the browser's session history
+  const state = { page: 1 };
+  const title = '';
+  const url = 'portfolio.html';
+
+  window.history.pushState(state, title, url);
+
+  // Prevent the user from navigating back
+  window.addEventListener('popstate', function (event) {
+      // Add another entry to the history to keep the current state
+      window.history.pushState(state, title, url);
+      alert("You should cansel first")
+
+      // You can also display a message to the user if needed
+      console.log("You cannot navigate back.");
+  });
+
 
 </script>
 </body>

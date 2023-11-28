@@ -392,7 +392,7 @@
   
       var index = 0;
       if (parsedData) {
-        parsedData.forEach(item => {
+        parsedData.reverse().forEach(item => {
           const card = createCardElement(item);
           cardContainer.appendChild(card);
           index++;
@@ -571,7 +571,7 @@
       document.getElementById('Sum_Budgets').textContent = `${totalBudget.toFixed(2)}$`;
 
       const apiUrl = 'https://financialmodelingprep.com/api/v3/quote-order/';
-      const apiKey = 'hyVSthYNOyrZg6X0L6B19DBYXUP5JDyJ';
+      const apiKey = 'k0wOZwaeBqPBeeutNskntC6QdhCCK4WY';
 
       // Function to get the NowPrice of a symbol
       function getNowPrice(symbol) {
@@ -666,7 +666,7 @@
 
             // Save the new value to localStorage
             var newValue = current_wallet.innerText;
-            localStorage.setItem('wallet', newValue);
+            localStorage.setItem('wallet', isNaN(Number(newValue))? 0 : Number(newValue));
 
             // If the new value is empty, revert to the original value
             if (newValue.trim() === '') {

@@ -83,6 +83,9 @@
   .custom-spinner .spinner-border {
   color: #007BFF; /* Change to the desired blue color */
   }
+  #searchButton2{
+    border-radius: 0px 5px 5px 0px;
+  }
 </style>
 
 <body onload="fetchStockNews_onload()">
@@ -91,7 +94,7 @@
 
     <div class="d-flex align-items-center justify-content-between">
       <i class="bi bi-list toggle-sidebar-btn" style="margin-left: -20px;"></i>
-      <a href="prtfolio.html" class="logo d-flex align-items-center">
+      <a href="portfolio.html" class="logo d-flex align-items-center">
         <img src="assets/img/logo.png" alt="logo" style="padding-left: 40px;">
       </a>
     </div><!-- End Logo -->
@@ -214,13 +217,13 @@
     </div><!-- End Page Title -->
 
 
-    <div class="btn-group" role="group" aria-label="Basic radio toggle button group" style="margin-bottom: 25px;">
+    <!-- <div class="btn-group" role="group" aria-label="Basic radio toggle button group" style="margin-bottom: 25px;">
       <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
       <label class="btn btn-outline-primary" for="btnradio1">Popular</label>
     
       <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
       <label class="btn btn-outline-primary" for="btnradio3">Favorite</label>
-    </div>
+    </div> -->
 
     
     <div class="card card-body">
@@ -284,80 +287,96 @@
   <script src="assets/js/main.js"></script>
 
   <script>
-        $(document).ready(function () {
-            //click keybord (Enter)
-            $("#stockSymbol").keydown(function(event) {
-                if (event.key === "Enter") {
-                    event.preventDefault();
-                    const stockSymbol = $("#stockSymbol").val();
-                    if (stockSymbol) {
-                      const filter = $("#filterDropdown").val();
-                      const timeFrom = $("#timeFromDate").val();
-                      fetchStockNews(stockSymbol, filter, timeFrom);
-                      $("#searchButton2").css("display", "none");
-                      $("#searchButton3").css("display", "block");
-                    } else{
-                      window.location.href = "news.html";
-                    }
-                }
-            });
-            //click search
-            $("#searchButton").click(function () {
+
+    const storedSymbol = localStorage.getItem("SymbolNews");
+    // Check if the data is present
+    $(document).ready(function() {
+      if (storedSymbol) {
+        localStorage.setItem("SymbolNews", "");
+        console.log("YEsssssssssssssssssssssssssssss");
+        document.getElementById('stockSymbol').value = storedSymbol;
+        $("#searchButton").click();
+        $("#searchButton").click();
+
+      }
+    });
+
+
+
+    $(document).ready(function () {
+        //click keybord (Enter)
+        $("#stockSymbol").keydown(function(event) {
+            if (event.key === "Enter") {
+                event.preventDefault();
                 const stockSymbol = $("#stockSymbol").val();
-                if (stockSymbol) {
-                      const filter = $("#filterDropdown").val();
-                      const timeFrom = $("#timeFromDate").val();
-                      fetchStockNews(stockSymbol, filter, timeFrom);
-                      $("#searchButton2").css("display", "none");
-                      $("#searchButton3").css("display", "block");
-                    } else{
-                      window.location.href = "news.html";
-                    }
-            });
-
-            function fetchStockNews(symbol,filter, timeFrom) {
-              console.log("SEARCH:" + symbol);
-              const apiKey = "MCZ5C1JKBEGT92PZ";
-              let apiUrl = `https://www.alphavantage.co/query?function=NEWS_SENTIMENT&apikey=${apiKey}&topics=technology&tickers=${symbol}`;
-              //const apiUrl = `https://www.alphavantage.co/query?function=NEWS_SENTIMENT&tickers=AAPL&apikey=demo`;
-
-              if(filter === "RELEVANCE")
-                apiUrl+= `&sort=RELEVANCE`;
-              else if (filter === "TIME_FROM") {
-                const timeFromTimestamp = timeFrom.replace(/-/g, "").concat("T0130");
-                apiUrl += `&time_from=${timeFromTimestamp}&sort=RELEVANCE`;
-                //const apiUrl = `https://www.alphavantage.co/query?function=NEWS_SENTIMENT&tickers=AAPL&apikey=demo`;
-                console.log(timeFromTimestamp);
-              }
-              console.log("Filter: " + filter);
-
-                // Clear previous results and Show the loading spinner
-              $("#newsResults").html("");
-              $("#loadingSpinner").show();
-            
-              $.get(apiUrl, function (data) {
-                if (data && data.feed) {
-                  // Hide the loading spinner
-                  $("#loadingSpinner").hide();
-
-                  // Display news cards with animation
-                  displayNewsWithAnimation(data.feed);
-                } else {
-                  $("#newsResults").html("<p>No news available for this stock symbol.</p>");
-                }
-              });
-            }
-
-             // Handle the search button click
-            $("#searchButton3").click(function () {
-              const stockSymbol = $("#stockSymbol").val();
                 if (stockSymbol) {
                   const filter = $("#filterDropdown").val();
                   const timeFrom = $("#timeFromDate").val();
                   fetchStockNews(stockSymbol, filter, timeFrom);
+                  $("#searchButton2").css("display", "none");
+                  $("#searchButton3").css("display", "block");
+                } else{
+                  window.location.href = "news.html";
                 }
-            });
+            }
         });
+        //click search
+        $("#searchButton").click(function () {
+            const stockSymbol = $("#stockSymbol").val();
+            if (stockSymbol) {
+                  const filter = $("#filterDropdown").val();
+                  const timeFrom = $("#timeFromDate").val();
+                  fetchStockNews(stockSymbol, filter, timeFrom);
+                  $("#searchButton2").css("display", "none");
+                  $("#searchButton3").css("display", "block");
+                } else{
+                  window.location.href = "news.html";
+                }
+        });
+
+        function fetchStockNews(symbol,filter, timeFrom) {
+          console.log("SEARCH:" + symbol);
+          const apiKey = "T0PANKTWE68RFQVY";
+          let apiUrl = `https://www.alphavantage.co/query?function=NEWS_SENTIMENT&apikey=${apiKey}&topics=technology&tickers=${symbol}`;
+          //const apiUrl = `https://www.alphavantage.co/query?function=NEWS_SENTIMENT&tickers=AAPL&apikey=demo`;
+
+          if(filter === "RELEVANCE")
+            apiUrl+= `&sort=RELEVANCE`;
+          else if (filter === "TIME_FROM") {
+            const timeFromTimestamp = timeFrom.replace(/-/g, "").concat("T0130");
+            apiUrl += `&time_from=${timeFromTimestamp}&sort=RELEVANCE`;
+            //const apiUrl = `https://www.alphavantage.co/query?function=NEWS_SENTIMENT&tickers=AAPL&apikey=demo`;
+            console.log(timeFromTimestamp);
+          }
+          console.log("Filter: " + filter);
+
+            // Clear previous results and Show the loading spinner
+          $("#newsResults").html("");
+          $("#loadingSpinner").show();
+        
+          $.get(apiUrl, function (data) {
+            if (data && data.feed) {
+              // Hide the loading spinner
+              $("#loadingSpinner").hide();
+
+              // Display news cards with animation
+              displayNewsWithAnimation(data.feed);
+            } else {
+              $("#newsResults").html("<p>No news available for this stock symbol.</p>");
+            }
+          });
+        }
+
+          // Handle the search button click
+        $("#searchButton3").click(function () {
+          const stockSymbol = $("#stockSymbol").val();
+            if (stockSymbol) {
+              const filter = $("#filterDropdown").val();
+              const timeFrom = $("#timeFromDate").val();
+              fetchStockNews(stockSymbol, filter, timeFrom);
+            }
+        });
+    });
   </script>
   <!-- End of search News -->
 
@@ -365,7 +384,7 @@
   $(document).ready(function () {
 
     function fetchStockNews(filter, timeFrom) {
-      const apiKey = "MCZ5C1JKBEGT92PZ";
+      const apiKey = "T0PANKTWE68RFQVY";
       console.log("HOME");
       let apiUrl = `https://www.alphavantage.co/query?function=NEWS_SENTIMENT&apikey=${apiKey}&topics=technology`;
       //const apiUrl = `https://www.alphavantage.co/query?function=NEWS_SENTIMENT&tickers=AAPL&apikey=demo`;

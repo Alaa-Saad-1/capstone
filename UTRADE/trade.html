@@ -164,9 +164,13 @@
           <div class="col-md-6 mb-3">
             <label for="stock-symbols" class="form-label">Enter the Stocks symbol (separated with a comma):</label>
             <input type="text" class="form-control" id="stock-symbols" name="stock-symbols" required>
+            <div style="display: flex; align-items: center;">
+              <span id="symbols_warning_message" style="display: none; color: red; font-size: small;">Undefined symblols: </span>
+              <span id="symbols_warning_message2" style=" color: red; font-size: small;"></span>
+            </div>
           </div>
         </div>
-    
+
         <div class="row">
           <div class="col-md-6 mb-3">
             <label for="due-date" class="form-label">Select the due date:</label>
@@ -179,7 +183,7 @@
             <label for="initial-amount" class="form-label">Enter the initial amount (Dollar):</label>
             <input type="number" class="form-control" id="initial-amount" name="initial-amount" required>
             <p id="wallet_warning_message" style="display: none; color: red; font-size: small;">You do not have enough money in your wallet to complete this process.
-              Go to your <a href="prtfolio.html">protfolio</a> to edit the wallet, or try entering a smaller amount</p>
+              Go to your <a href="portfolio.html">protfolio</a> to edit the wallet, or try entering a smaller amount</p>
           </div>
         </div>
     
@@ -217,7 +221,16 @@
 
     <script>
       var stockDataArray = JSON.parse(localStorage.getItem("stockDataArray")) || [];
+      const test = JSON.parse(localStorage.getItem("stockDataArray")) || 0;
+
       const wallet = localStorage.getItem('wallet')||0;
+      console.log(stockDataArray[stockDataArray.length-1])
+
+      var newID;
+      if(test)
+        newID = stockDataArray[stockDataArray.length-1].ID + 1;
+      else
+        newID = 1;
 
       document.getElementById("stock-selection-form").addEventListener("submit", function (e) {
           e.preventDefault();
@@ -240,6 +253,7 @@
             const formDate = `${year}-${month}-${day}`;
 
             trade = {
+              ID: newID,
               FromDate: formDate,
               DueDate: dueDate,
               Budget: initialAmount,
@@ -248,31 +262,55 @@
             }
             // Fetch the price for each symbol from the API
             const apiUrl = `https://financialmodelingprep.com/api/v3/quote-order/`;
-            const apiKey = 'DZdHINhAKeEnsE6yDLBYFVI9lWOvPcLI'; // Replace with your API key
-    
+            const apiKey = 'k0wOZwaeBqPBeeutNskntC6QdhCCK4WY';
+
             // Use a promise to ensure all API requests are completed before redirecting
+            let hasError = false;
             const fetchSymbolDataPromises = uniqueStockSymbols.map(symbol => {
+                document.getElementById('symbols_warning_message2').textContent = "";
                 return fetch(`${apiUrl}${symbol}?apikey=${apiKey}`)
-                    .then(response => response.json())
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`Error fetching data for symbol ${symbol}: ${response.status} - ${response.statusText}`);
+                        }
+                        return response.json();
+                    })
                     .then(data => {
                         const sharePrice = data[0].price;
                         // Create an object for each symbol with 1 share and the price
                         const symbolData = { symbol: symbol, shares: 1, price: Number(sharePrice), finalPrice: 0 };
                         trade.data.push(symbolData);
+                    })
+                    .catch(error => {
+                        console.error(error);
+                        document.getElementById('symbols_warning_message').style.display = "block";
+                        document.getElementById('symbols_warning_message2').textContent += " "+symbol+",";
+                        //alert(`Error fetching data for symbol ${symbol}: ${error.message}`);
+                        hasError = true;
                     });
             });
-            
 
-            Promise.all(fetchSymbolDataPromises).then(() => {
-                stockDataArray.push(trade);
+            Promise.all(fetchSymbolDataPromises)
+                .then(() => {
+                    // Only proceed to the next page if there are no errors
+                    if (!hasError) {
+                        stockDataArray.push(trade);
 
-                // Store the array of symbol data in localStorage
-                localStorage.setItem("stockDataArray", JSON.stringify(stockDataArray));
-    
-                // Redirect to the second page
-                localStorage.setItem('wallet', (Number(wallet) - Number(initialAmount)));
-                window.location.href = "next_trade.html";
-            });
+                        // Store the array of symbol data in localStorage
+                        localStorage.setItem("stockDataArray", JSON.stringify(stockDataArray));
+
+                        // Redirect to the second page
+                        localStorage.setItem('wallet', (Number(wallet) - Number(initialAmount)));
+                        window.location.href = "next_trade.html";
+                    } else {
+                        // Handle errors here if needed, but don't redirect to the next page
+                    }
+                })
+                .catch(error => {
+                    console.error(error);
+                    // Handle other errors here if needed
+                });
+
           }
       });
   </script>
