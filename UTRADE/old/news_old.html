@@ -86,26 +86,6 @@
   #searchButton2{
     border-radius: 0px 5px 5px 0px;
   }
-  #stockImagesContainer {
-    overflow-x: auto;
-    white-space: nowrap;
-    display: flex;
-    /* justify-content: center; */
-    margin-bottom: -17px !important;
-  }
-
-  .stockImageContainer {
-      border-radius: 100%;
-      background-color: #3c91eb36;
-      padding: 10px;
-      margin-right: 7px;
-      margin-left: 7px;
-  }
-
-  .stockImage {
-      max-width: 35px;
-      display: block; /* To remove extra space below inline-block elements */
-  }
 </style>
 
 <body onload="fetchStockNews_onload()">
@@ -286,23 +266,16 @@
 
     </div>
 
-    <!-- Favorite -->
     <div id="FavoriteContainer" style="display: none;">
+      <h1>Favorite</h1>
+      <button id="appleBtn" class="btn bg-primary" >AAPL</button>
 
       <div class="card card-body">
-        <div class="container mt-4">
-            <div id="stockImagesContainer" class="mb-3">
-                <!-- Stock images will be dynamically added here -->
-            </div>
-            <hr>
-        </div>
-        <div class="container mt-3">
+        <div class="container mt-5">
           <div style="display: flex;">
-            
             <div class="input-group mb-3">
-              <!-- <input type="text" id="stockSymbolFav" class="form-control" placeholder="Enter Stock Symbol">
-              <button class="btn btn-primary" id="searchButtonFav">Search</button> -->
-              <h3 id="clickedFavSymbol">Click on a stock</h3>
+              <input type="text" id="stockSymbolFav" class="form-control" placeholder="Enter Stock Symbol">
+              <button class="btn btn-primary" id="searchButtonFav">Search</button>
             </div>
             <div class="input-group mb-3">
               <!-- Filter dropdown -->
@@ -388,96 +361,51 @@
 
 <script>
 
-  //$(document).ready(function () {
+  $(document).ready(function () {
 
-    // Sample data, replace this with your actual data
-    var favoriteStocks = JSON.parse(localStorage.getItem('favoriteStocks')) || [];
-    
-    // Function to create stock images
-    function createStockImages() {
-        var container = document.getElementById('stockImagesContainer');
-
-        // Clear existing images
-        container.innerHTML = '';
-
-        // Create images dynamically using a template string
-        container.innerHTML = `
-            ${favoriteStocks.map(symbol => `
-                <div style="text-align: center;">
-                    <div class="stockImageContainer" onclick="showFavStock('${symbol}')">
-                        <img class="stockImage" src="https://fmpcloud.io/image-stock/${symbol}.png" alt="${symbol}" >
-                    </div>
-                    <p style="font-size: small; margin-top: 3px;">${symbol}</p>
-                </div>
-            `).join('')}
-        `;
-    }
-
-    // Call the function to initially create images
-    createStockImages();
-
-    function showFavStock(symbol){
-        document.getElementById('clickedFavSymbol').textContent = symbol;
+    $("#appleBtn").click(function () {
+        const symbol = document.getElementById('appleBtn').textContent;
         const filter = $("#filterDropdownFav").val();
         const timeFrom = $("#timeFromDateFav").val();
         fetchStockNewsFav(symbol, filter, timeFrom);
         $("#searchButton2Fav").css("display", "none");
         $("#searchButton3Fav").css("display", "block");
-    }
-
-    document.getElementById('searchButton2Fav').addEventListener('click', ()=>{
-      const symbol = document.getElementById('clickedFavSymbol').textContent;
-      const filter = $("#filterDropdownFav").val();
-      const timeFrom = $("#timeFromDateFav").val();
-      fetchStockNewsFav(symbol, filter, timeFrom);
-      $("#searchButton2Fav").css("display", "none");
-      $("#searchButton3Fav").css("display", "block");
-    })
-
-    document.getElementById('searchButton3Fav').addEventListener('click', ()=>{
-      const symbol = document.getElementById('clickedFavSymbol').textContent;
-      const filter = $("#filterDropdownFav").val();
-      const timeFrom = $("#timeFromDateFav").val();
-      fetchStockNewsFav(symbol, filter, timeFrom);
-      $("#searchButton2Fav").css("display", "none");
-      $("#searchButton3Fav").css("display", "block");
-    })
-
+      });
 
 
       //click keybord (Enter)
-      // $("#stockSymbolFav").keydown(function(event) {
-      //     if (event.key === "Enter") {
-      //         event.preventDefault();
-      //         const stockSymbolFav = $("#stockSymbolFav").val();
-      //         if (stockSymbolFav) {
-      //           const filter = $("#filterDropdownFav").val();
-      //           const timeFrom = $("#timeFromDateFav").val();
-      //           fetchStockNewsFav(stockSymbolFav, filter, timeFrom);
-      //           $("#searchButton2Fav").css("display", "none");
-      //           $("#searchButton3Fav").css("display", "block");
-      //         } else{
-      //           window.location.href = "news.html";
-      //         }
-      //     }
-      // });
-      // //click search
-      // $("#searchButtonFav").click(function () {
-      //     const stockSymbolFav = $("#stockSymbolFav").val();
-      //     if (stockSymbolFav) {
-      //           const filter = $("#filterDropdownFav").val();
-      //           const timeFrom = $("#timeFromDateFav").val();
-      //           fetchStockNewsFav(stockSymbolFav, filter, timeFrom);
-      //           $("#searchButton2Fav").css("display", "none");
-      //           $("#searchButton3Fav").css("display", "block");
-      //         } else{
-      //           window.location.href = "news.html";
-      //         }
-      // });
+      $("#stockSymbolFav").keydown(function(event) {
+          if (event.key === "Enter") {
+              event.preventDefault();
+              const stockSymbolFav = $("#stockSymbolFav").val();
+              if (stockSymbolFav) {
+                const filter = $("#filterDropdownFav").val();
+                const timeFrom = $("#timeFromDateFav").val();
+                fetchStockNewsFav(stockSymbolFav, filter, timeFrom);
+                $("#searchButton2Fav").css("display", "none");
+                $("#searchButton3Fav").css("display", "block");
+              } else{
+                window.location.href = "news.html";
+              }
+          }
+      });
+      //click search
+      $("#searchButtonFav").click(function () {
+          const stockSymbolFav = $("#stockSymbolFav").val();
+          if (stockSymbolFav) {
+                const filter = $("#filterDropdownFav").val();
+                const timeFrom = $("#timeFromDateFav").val();
+                fetchStockNewsFav(stockSymbolFav, filter, timeFrom);
+                $("#searchButton2Fav").css("display", "none");
+                $("#searchButton3Fav").css("display", "block");
+              } else{
+                window.location.href = "news.html";
+              }
+      });
 
       function fetchStockNewsFav(symbol,filter, timeFrom) {
         console.log("SEARCH:" + symbol);
-        const apiKey = "T0PANKTWE68RFQVY"; //   , 14D1O5FPLVWK9QLQ
+        const apiKey = "T0PANKTWE68RFQVY"; //T0PANKTWE68RFQVY
         let apiUrl = `https://www.alphavantage.co/query?function=NEWS_SENTIMENT&apikey=${apiKey}&topics=technology&tickers=${symbol}`;
         //const apiUrl = `https://www.alphavantage.co/query?function=NEWS_SENTIMENT&tickers=AAPL&apikey=demo`;
 
@@ -509,14 +437,14 @@
       }
 
         // Handle the search button click
-      // $("#searchButton3Fav").click(function () {
-      //   const stockSymbolFav = $("#stockSymbolFav").val();
-      //     if (stockSymbolFav) {
-      //       const filter = $("#filterDropdownFav").val();
-      //       const timeFrom = $("#timeFromDateFav").val();
-      //       fetchStockNewsFav(stockSymbolFav, filter, timeFrom);
-      //     }
-      // });
+      $("#searchButton3Fav").click(function () {
+        const stockSymbolFav = $("#stockSymbolFav").val();
+          if (stockSymbolFav) {
+            const filter = $("#filterDropdownFav").val();
+            const timeFrom = $("#timeFromDateFav").val();
+            fetchStockNewsFav(stockSymbolFav, filter, timeFrom);
+          }
+      });
 
       // Show/hide the date input based on the filter selection
       $("#filterDropdownFav").change(function () {
@@ -528,7 +456,7 @@
         }
       });
 
-  //});
+  });
 
   function displayNewsWithAnimationFav(feed) {
     const newsResultsFavDiv = $("#newsResultsFav");

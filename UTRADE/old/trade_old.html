@@ -159,7 +159,7 @@
     </div><!-- End Page Title -->
     
     <div class="container mt-5">
-      <form id="stock-selection-form">
+      <form id="stock-selection-form" action="page2.html">
         <div class="row">
           <div class="col-md-6 mb-3">
             <label for="stock-symbols" class="form-label">Enter the Stocks symbol (separated with a comma):</label>
@@ -254,7 +254,6 @@
 
             trade = {
               ID: newID,
-              Appearance: "block",
               FromDate: formDate,
               DueDate: dueDate,
               Budget: initialAmount,
@@ -263,8 +262,7 @@
             }
             // Fetch the price for each symbol from the API
             const apiUrl = `https://financialmodelingprep.com/api/v3/quote-order/`;
-            const apiKey = 'FnmypkCJXo2N0ejSmZDeyXgJIvKAFVS8';
-            //another apikey => k0wOZwaeBqPBeeutNskntC6QdhCCK4WY
+            const apiKey = 'k0wOZwaeBqPBeeutNskntC6QdhCCK4WY';
 
             // Use a promise to ensure all API requests are completed before redirecting
             let hasError = false;

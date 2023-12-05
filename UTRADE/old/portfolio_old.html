@@ -79,7 +79,7 @@
       text-align: right;
     } */
 
-    .selling-btn {
+    .delete-btn {
         margin-top: 5px;
         position: absolute;
         top: 0;
@@ -87,15 +87,6 @@
         font-size: smaller;
         border: none;
         color: gray;
-    }
-    .hide-btn{
-        margin-top: 5px;
-        margin-left: 5px;
-        position: absolute;
-        top: 0;
-        left: 0;
-        font-size: smaller;
-        border: none;
     }
     .CARD_titles{
       color:rgb(33, 33, 190);
@@ -341,28 +332,6 @@
       </div>
     </div>
 
-    <!-- <button class="btn">Hidden plans</button> -->
-
-    <div style="text-align: left;">
-      <button class="btn" style="margin-left: 0;" onclick="toggleHiddenCardsVisibility()">
-        <i id="arrowIcon" class="fas fa-chevron-right"></i> Hidden plans
-      </button>
-    </div>
-
-    <div id="HiddenCards" style="display: none;">
-      <hr>
-      <h3 style="color:rgb(33, 33, 190); margin-bottom: 30px; margin-top: 13px;">Hidden Plans</h3>
-
-      <div class="card-container py-5">
-        <div class="row" id="cardContainerHidden">
-
-          
-
-        </div>
-      </div>
-
-    </div>
-
     <!-- Edit Modal For Wallet-->
     <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
       <div class="modal-dialog">
@@ -382,29 +351,29 @@
       </div>
     </div>
 
-    <!-- Bootstrap modal -->
-    <div class="modal fade" id="sellPlanModal" tabindex="-1" aria-labelledby="sellPlanModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-          <div class="modal-content">
-              <div class="modal-header">
-                  <h5 class="modal-title" id="sellPlanModalLabel">Confirmation</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body">
-                  Are you sure you want to sell the plan?
-              </div>
-              <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-                  <button type="button" class="btn btn-primary" onclick="handleSellConfirmation()" data-bs-dismiss="modal">Yes</button>
-              </div>
+<!-- Bootstrap modal -->
+<div class="modal fade" id="sellPlanModal" tabindex="-1" aria-labelledby="sellPlanModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="sellPlanModalLabel">Confirmation</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+              Are you sure you want to sell the plan?
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+              <button type="button" class="btn btn-primary" onclick="handleSellConfirmation()" data-bs-dismiss="modal">Yes</button>
           </div>
       </div>
-    </div>
+  </div>
+</div>
 
   </main><!-- End #main -->
 
   <!-- ======= Footer ======= -->
-  <footer id="footer" class="footer" style="margin-top: 100px;">
+  <footer id="footer" class="footer" style="margin-top: 250px;">
     <div class="copyright">
       <a href="#">&copy; Copyright <strong><span>UTRADE</span></strong>.</a>
     </div>
@@ -476,40 +445,6 @@
       location.reload();
     }
 
-    function toggleCardVisibility(CardID){
-      const cards = JSON.parse(localStorage.getItem('stockDataArray')) || [];
-
-      const newCards = cards.map((card) => {
-        if (Number(card.ID) === Number(CardID)) {
-          if(card.Appearance == "block")
-            card.Appearance = "none";
-          else
-            card.Appearance = "block";
-        }
-        return card;
-      });
-      console.log(newCards);
-      localStorage.setItem("stockDataArray", JSON.stringify(newCards));
-      location.reload();
-
-    }
-
-    function toggleHiddenCardsVisibility(){
-      const HiddenCards = document.getElementById('HiddenCards');
-      if(HiddenCards.style.display == 'none')
-        HiddenCards.style.display = 'block';
-      else
-        HiddenCards.style.display = 'none';
-
-      const arrowIcon = document.getElementById('arrowIcon');
-      if (arrowIcon.classList.contains('fa-chevron-right')) {
-        arrowIcon.classList.remove('fa-chevron-right');
-        arrowIcon.classList.add('fa-chevron-down');
-      } else {
-        arrowIcon.classList.remove('fa-chevron-down');
-        arrowIcon.classList.add('fa-chevron-right');
-      }
-    }
 
     document.addEventListener('DOMContentLoaded', function () {
       // 1. Retrieve data from local storage
@@ -517,8 +452,6 @@
   
       // 2. Create card elements dynamically
       const cardContainer = document.getElementById('cardContainer');
-      const cardContainerHidden = document.getElementById('cardContainerHidden');
-      
       const modal = createModal();
       document.body.appendChild(modal);
   
@@ -526,10 +459,7 @@
       if (parsedData) {
         parsedData.reverse().forEach(item => {
           const card = createCardElement(item);
-          if(item.Appearance == 'none')
-            cardContainerHidden.appendChild(card);
-          else
-            cardContainer.appendChild(card);
+          cardContainer.appendChild(card);
           index++;
         });
       }
@@ -543,10 +473,7 @@
         <div class="card">
           <div class="card-body">
             <br>
-            <button type="button" class="btn btn-outline-secondary hide-btn" onclick="toggleCardVisibility('${data.ID}')">
-              ${data.Appearance == "block"? '<i class="fas fa-eye-slash"></i>': '<i class="fas fa-eye"></i>'}
-            </button>
-            <button type="button" class="btn btn-outline-danger selling-btn" onclick="sellPlan('${data.ID}')">
+            <button type="button" class="btn btn-outline-danger delete-btn" onclick="sellPlan('${data.ID}')">
               <i class="fas fa-dollar-sign">Sell</i>
             </button>
             <h3 class="CARD_titles">Plan</h3>
