@@ -38,6 +38,9 @@
         .scrollable-div {
             overflow-x: auto;
         }
+        .the_card_titles{
+            font-size: x-large;
+        }
 
     </style>
 </head>
@@ -65,8 +68,15 @@
             <a href="portfolio.html"><button class="btn btn-primary mt-3">Next</button></a>
         </div>
     </div>
+
 </main>
 
+
+<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+<script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="assets/js/main.js"></script>
+<script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
 <!-- Include Bootstrap JS and Popper.js -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
@@ -127,7 +137,9 @@
         "Interest 3": ["PANW", "CYBR", "FTNT", "CHKP", "SPLK", "CRWD", "OKTA", "ZS", "SYMC", "FSLY"],
         "Interest 4": ["AMZN", "MSFT", "GOOGL", "CRM", "IBM", "RHT", "NOW", "TWLO", "VMW", "AKAM"],
         "Interest 5": ["CRM", "ADBE", "CRM", "SPLK", "ACN", "IBM", "DDOG", "TTD", "ORCL", "CRM"],
-        "Interest 6": ["INTC", "CSCO", "IBM", "AMZN", "TSLA", "HON", "ABB", "SI", "SWKS", "QCOM"]
+        "Interest 6": ["INTC", "CSCO", "IBM", "AMZN", "TSLA", "HON", "ABB", "SI", "SWKS", "QCOM"],
+        "Interest 7": ["V", "MA", "AXP", "GS", "JPM", "BAC", "WFC", "C", "MS", "BLK"],
+        "Interest 8": ["AAPL", "HPQ", "DELL", "IBM", "INTC", "AMD", "NVDA", "AVGO", "STM", "TXN"]
     };
 
     const InterestName = {
@@ -136,7 +148,9 @@
         "Interest 3": "Cybersecurity",
         "Interest 4": "Cloud Computing",
         "Interest 5": "Data Science",
-        "Interest 6": "Internet of Things"
+        "Interest 6": "Internet of Things",
+        "Interest 7": "Machine Learning",
+        "Interest 8": "Semiconductors"
     }
 
     const stocksContainer = document.getElementById('stocks-container');
@@ -149,7 +163,7 @@
         card.innerHTML = `
             <div class="card text-center">
                 <div class="card-body">
-                    <h5 class="card-title">${InterestName[interest]} Stocks</h5>
+                    <h5 class="card-title the_card_titles">${InterestName[interest]} Stocks</h5>
                     <div class="table-responsive">
                         <table class="table table-striped">
                             <thead>
@@ -175,40 +189,44 @@
     });
 
     function fetchTechStocks(interestKey, symbols) {
-        const apiKey = 'hyVSthYNOyrZg6X0L6B19DBYXUP5JDyJ';
-        const apiUrl = `https://financialmodelingprep.com/api/v3/quote-order/${symbols.join(",")}?apikey=${apiKey}`;
+    const apiKey = 'hyVSthYNOyrZg6X0L6B19DBYXUP5JDyJ';
+    const apiUrl = `https://financialmodelingprep.com/api/v3/quote-order/${symbols.join(",")}?apikey=${apiKey}`;
 
-        fetch(apiUrl)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then(data => {
-                const techStocksList = document.getElementById(`${interestKey}StocksList`);
-                const stocks = data;
+    fetch(apiUrl)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            const techStocksList = document.getElementById(`${interestKey}StocksList`);
+            const stocks = data;
 
-                stocks.forEach(stock => {
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
-                        <td><button class="btn btn-link">
-                            <i class="fa ${favoriteStocks.includes(stock.symbol) ? 'fa-heart' : 'fa-heart-o'} favorite-icon"></i>
-                        </button></td>
-                        <td><img src="https://fmpcloud.io/image-stock/${stock.symbol}.png" alt="${stock.name}" onerror="this.style.display='none'" class="image-small"></td>
-                        <td class="symbol dark-blue" style="font-weight: bold;"><span class="text-primary">${stock.symbol}</span></td>
-                        <td>${stock.name}</td>
-                        <td>$${formatNumber(stock.marketCap)}</td>
-                        <td class="price" style="font-weight: bold;">$${stock.price.toFixed(2)}</td>
-                        <td>${formatNumber(stock.avgVolume)}</td>
-                    `;
-                    techStocksList.appendChild(row);
-                });
+            // Sort stocks based on market cap in descending order
+            stocks.sort((a, b) => b.marketCap - a.marketCap);
 
-                updateFavoriteIcons();
-            })
-            .catch(error => console.error('Error fetching data:', error));
-    }
+            stocks.forEach(stock => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td><button class="btn btn-link">
+                        <i class="fa ${favoriteStocks.includes(stock.symbol) ? 'fa-heart' : 'fa-heart-o'} favorite-icon"></i>
+                    </button></td>
+                    <td><img src="https://fmpcloud.io/image-stock/${stock.symbol}.png" alt="${stock.name}" onerror="this.style.display='none'" class="image-small"></td>
+                    <td class="symbol dark-blue" style="font-weight: bold;"><span class="text-primary">${stock.symbol}</span></td>
+                    <td>${stock.name}</td>
+                    <td>$${formatNumber(stock.marketCap)}</td>
+                    <td class="price" style="font-weight: bold;">$${stock.price.toFixed(2)}</td>
+                    <td>${formatNumber(stock.avgVolume)}</td>
+                `;
+                techStocksList.appendChild(row);
+            });
+
+            updateFavoriteIcons();
+        })
+        .catch(error => console.error('Error fetching data:', error));
+}
+
 
     stocksContainer.addEventListener("click", function (event) {
         const target = event.target;

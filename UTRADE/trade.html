@@ -136,18 +136,10 @@
       <span>Trade</span>
       </a>
   </li><!-- End Contact Page Nav -->
-
-  <li class="nav-item">
-      <a class="nav-link collapsed" href="pages-register.html">
-      <i class="bi bi-card-list"></i>
-      <span>Register</span>
-      </a>
-  </li><!-- End Register Page Nav -->
-
   </ul>
 
 </aside><!-- End Sidebar-->
-    
+
   <main id="main" class="main">
     <div class="pagetitle">
       <h1>Test Your Plan:</h1>
@@ -166,7 +158,9 @@
             <input type="text" class="form-control" id="stock-symbols" name="stock-symbols" required>
             <div style="display: flex; align-items: center;">
               <span id="symbols_warning_message" style="display: none; color: red; font-size: small;">Undefined symblols: </span>
+              <span id="symbols_warning_message3" style="display: none; color: red; font-size: small;">These symbols are not in technology sector: </span>
               <span id="symbols_warning_message2" style=" color: red; font-size: small;"></span>
+
             </div>
           </div>
         </div>
@@ -226,11 +220,16 @@
       const wallet = localStorage.getItem('wallet')||0;
       console.log(stockDataArray[stockDataArray.length-1])
 
-      var newID;
-      if(test)
-        newID = stockDataArray[stockDataArray.length-1].ID + 1;
-      else
-        newID = 1;
+      // var newID;
+      // if(test)
+      //   newID = stockDataArray[stockDataArray.length-1].ID + 1;
+      // else
+      //   newID = 1;
+
+      var newID = 1;
+      if (test && stockDataArray.length > 0)
+        newID = stockDataArray[stockDataArray.length - 1].ID + 1;
+
 
       document.getElementById("stock-selection-form").addEventListener("submit", function (e) {
           e.preventDefault();
@@ -266,52 +265,81 @@
             const apiKey = 'FnmypkCJXo2N0ejSmZDeyXgJIvKAFVS8';
             //another apikey => k0wOZwaeBqPBeeutNskntC6QdhCCK4WY
 
-            // Use a promise to ensure all API requests are completed before redirecting
-            let hasError = false;
-            const fetchSymbolDataPromises = uniqueStockSymbols.map(symbol => {
-                document.getElementById('symbols_warning_message2').textContent = "";
-                return fetch(`${apiUrl}${symbol}?apikey=${apiKey}`)
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error(`Error fetching data for symbol ${symbol}: ${response.status} - ${response.statusText}`);
-                        }
-                        return response.json();
-                    })
-                    .then(data => {
-                        const sharePrice = data[0].price;
-                        // Create an object for each symbol with 1 share and the price
-                        const symbolData = { symbol: symbol, shares: 1, price: Number(sharePrice), finalPrice: 0 };
-                        trade.data.push(symbolData);
-                    })
-                    .catch(error => {
-                        console.error(error);
-                        document.getElementById('symbols_warning_message').style.display = "block";
-                        document.getElementById('symbols_warning_message2').textContent += " "+symbol+",";
-                        //alert(`Error fetching data for symbol ${symbol}: ${error.message}`);
-                        hasError = true;
-                    });
+            const TechnologySymbols = [
+              "AAPL", "MSFT", "GOOGL", "AMZN", "FB","GOOG",
+              "INTC", "AMD", "NVDA", "TXN", "QCOM",
+              "IBM", "ORCL", "CSCO", "HPQ", "AAP", "CRM", "NOW", "ADBE", "SAP", "VMW",
+              "TSLA", "NFLX", "TWTR", "UBER", "PYPL", "V", "MA", "INTU", "EBAY", "SQ",
+              "AMD", "MU", "AMAT", "AVGO", "LRCX", "KLAC", "ADI", "SWKS", "NXPI",
+              "XLNX", "MRVL", "TSM", "TXN", "INTC", "CSCO", "HPQ", "DXC", "WDC", "STX"
+            ];
+            var sucsess = true;
+            document.getElementById('symbols_warning_message2').textContent = "";
+            uniqueStockSymbols.forEach((symbol) =>{
+              if(!TechnologySymbols.includes(symbol.toUpperCase())){
+                if(document.getElementById('symbols_warning_message3').style.display == "none"){
+                  document.getElementById('symbols_warning_message3').style.display = "block";
+                  document.getElementById('symbols_warning_message3').textContent+="\n";
+                }
+                document.getElementById('symbols_warning_message2').textContent+= " "+symbol+",";
+                console.log("There is a not tech")
+                if(sucsess === true)
+                  sucsess = false;
+              }
             });
 
-            Promise.all(fetchSymbolDataPromises)
-                .then(() => {
-                    // Only proceed to the next page if there are no errors
-                    if (!hasError) {
-                        stockDataArray.push(trade);
+            if(sucsess){
+              if(document.getElementById('symbols_warning_message3').style.display == "block"){
+                  document.getElementById('symbols_warning_message3').style.display = "none";
+              }
+              // Use a promise to ensure all API requests are completed before redirecting
+              let hasError = false;
+              const fetchSymbolDataPromises = uniqueStockSymbols.map(symbol => {
+                  document.getElementById('symbols_warning_message2').textContent = "";
+                  return fetch(`${apiUrl}${symbol}?apikey=${apiKey}`)
+                      .then(response => {
+                          if (!response.ok) {
+                              throw new Error(`Error fetching data for symbol ${symbol}: ${response.status} - ${response.statusText}`);
+                          }
+                          return response.json();
+                      })
+                      .then(data => {
+                          const sharePrice = data[0].price;
+                          // Create an object for each symbol with 1 share and the price
+                          const symbolData = { symbol: symbol, shares: 1, price: Number(sharePrice), finalPrice: 0 };
+                          trade.data.push(symbolData);
+                      })
+                      .catch(error => {
+                          console.error(error);
+                          document.getElementById('symbols_warning_message').style.display = "block";
+                          document.getElementById('symbols_warning_message2').textContent += " "+symbol+",";
+                          //alert(`Error fetching data for symbol ${symbol}: ${error.message}`);
+                          hasError = true;
+                      });
+              });
 
-                        // Store the array of symbol data in localStorage
-                        localStorage.setItem("stockDataArray", JSON.stringify(stockDataArray));
+              Promise.all(fetchSymbolDataPromises)
+                  .then(() => {
+                      // Only proceed to the next page if there are no errors
+                      if (!hasError) {
+                          stockDataArray.push(trade);
 
-                        // Redirect to the second page
-                        localStorage.setItem('wallet', (Number(wallet) - Number(initialAmount)));
-                        window.location.href = "next_trade.html";
-                    } else {
-                        // Handle errors here if needed, but don't redirect to the next page
-                    }
-                })
-                .catch(error => {
-                    console.error(error);
-                    // Handle other errors here if needed
-                });
+                          // Store the array of symbol data in localStorage
+                          localStorage.setItem("stockDataArray", JSON.stringify(stockDataArray));
+
+                          // Redirect to the second page
+                          localStorage.setItem('wallet', (Number(wallet) - Number(initialAmount)));
+                          window.location.href = "next_trade.html";
+                      } else {
+                          // Handle errors here if needed, but don't redirect to the next page
+                      }
+                  })
+                  .catch(error => {
+                      console.error(error);
+                      // Handle other errors here if needed
+                  });
+
+            }
 
           }
       });

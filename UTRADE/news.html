@@ -212,17 +212,10 @@
       <span>Trade</span>
       </a>
   </li><!-- End Contact Page Nav -->
-
-  <li class="nav-item">
-      <a class="nav-link collapsed" href="pages-register.html">
-      <i class="bi bi-card-list"></i>
-      <span>Register</span>
-      </a>
-  </li><!-- End Register Page Nav -->
-
   </ul>
 
 </aside><!-- End Sidebar-->
+
 
 
   <main id="main" class="main">
@@ -260,7 +253,7 @@
               <select id="filterDropdown" class="form-select" style="margin: 0px 0px 0px 137px;">
                 <option value="RELEVANCE">RELEVANCE</option>
                 <option value="LATEST">LATEST</option>
-                <option value="TIME_FROM">TIME_FROM</option>
+                <!-- <option value="TIME_FROM">TIME_FROM</option> -->
               </select>
               <div id="timeFromInput" style="display: none;">
                 <input type="date" id="timeFromDate" class="form-control">
@@ -309,7 +302,7 @@
               <select id="filterDropdownFav" class="form-select" style="margin: 0px 0px 0px 137px;">
                 <option value="RELEVANCE">RELEVANCE</option>
                 <option value="LATEST">LATEST</option>
-                <option value="TIME_FROM">TIME_FROM</option>
+                <!-- <option value="TIME_FROM">TIME_FROM</option> -->
               </select>
               <div id="timeFromInputFav" style="display: none;">
                 <input type="date" id="timeFromDateFav" class="form-control">
@@ -483,12 +476,12 @@
 
         if(filter === "RELEVANCE")
           apiUrl+= `&sort=RELEVANCE`;
-        else if (filter === "TIME_FROM") {
-          const timeFromTimestamp = timeFrom.replace(/-/g, "").concat("T0130");
-          apiUrl += `&time_from=${timeFromTimestamp}&sort=RELEVANCE`;
-          //const apiUrl = `https://www.alphavantage.co/query?function=NEWS_SENTIMENT&tickers=AAPL&apikey=demo`;
-          console.log(timeFromTimestamp);
-        }
+        // else if (filter === "TIME_FROM") {
+        //   const timeFromTimestamp = timeFrom.replace(/-/g, "").concat("T0130");
+        //   apiUrl += `&time_from=${timeFromTimestamp}&sort=RELEVANCE`;
+        //   //const apiUrl = `https://www.alphavantage.co/query?function=NEWS_SENTIMENT&tickers=AAPL&apikey=demo`;
+        //   console.log(timeFromTimestamp);
+        // }
         console.log("Filter: " + filter);
 
           // Clear previous results and Show the loading spinner
@@ -519,14 +512,14 @@
       // });
 
       // Show/hide the date input based on the filter selection
-      $("#filterDropdownFav").change(function () {
-        const selectedFilter = $(this).val();
-        if (selectedFilter === "TIME_FROM") {
-          $("#timeFromInputFav").show();
-        } else {
-          $("#timeFromInputFav").hide();
-        }
-      });
+      // $("#filterDropdownFav").change(function () {
+      //   const selectedFilter = $(this).val();
+      //   if (selectedFilter === "TIME_FROM") {
+      //     $("#timeFromInputFav").show();
+      //   } else {
+      //     $("#timeFromInputFav").hide();
+      //   }
+      // });
 
   //});
 
@@ -626,18 +619,18 @@
 
         function fetchStockNews(symbol,filter, timeFrom) {
           console.log("SEARCH:" + symbol);
-          const apiKey = "jnblobnlojnkj"; //T0PANKTWE68RFQVY
+          const apiKey = "T0PANKTWE68RFQVY"; //T0PANKTWE68RFQVY
           let apiUrl = `https://www.alphavantage.co/query?function=NEWS_SENTIMENT&apikey=${apiKey}&topics=technology&tickers=${symbol}`;
           //const apiUrl = `https://www.alphavantage.co/query?function=NEWS_SENTIMENT&tickers=AAPL&apikey=demo`;
 
           if(filter === "RELEVANCE")
             apiUrl+= `&sort=RELEVANCE`;
-          else if (filter === "TIME_FROM") {
-            const timeFromTimestamp = timeFrom.replace(/-/g, "").concat("T0130");
-            apiUrl += `&time_from=${timeFromTimestamp}&sort=RELEVANCE`;
-            //const apiUrl = `https://www.alphavantage.co/query?function=NEWS_SENTIMENT&tickers=AAPL&apikey=demo`;
-            console.log(timeFromTimestamp);
-          }
+          // else if (filter === "TIME_FROM") {
+          //   const timeFromTimestamp = timeFrom.replace(/-/g, "").concat("T0130");
+          //   apiUrl += `&time_from=${timeFromTimestamp}&sort=RELEVANCE`;
+          //   //const apiUrl = `https://www.alphavantage.co/query?function=NEWS_SENTIMENT&tickers=AAPL&apikey=demo`;
+          //   console.log(timeFromTimestamp);
+          // }
           console.log("Filter: " + filter);
 
             // Clear previous results and Show the loading spinner
@@ -674,19 +667,19 @@
   $(document).ready(function () {
 
     function fetchStockNews(filter, timeFrom) {
-      const apiKey = "sdfcddkjndjej";//T0PANKTWE68RFQVY
+      const apiKey = "T0PANKTWE68RFQVY";//T0PANKTWE68RFQVY
       console.log("HOME");
       let apiUrl = `https://www.alphavantage.co/query?function=NEWS_SENTIMENT&apikey=${apiKey}&topics=technology`;
       //const apiUrl = `https://www.alphavantage.co/query?function=NEWS_SENTIMENT&tickers=AAPL&apikey=demo`;
       
       if(filter === "RELEVANCE")
         apiUrl+= `&sort=RELEVANCE`;
-      else if (filter === "TIME_FROM") {
-        const timeFromTimestamp = timeFrom.replace(/-/g, "").concat("T0130");
-        apiUrl += `&time_from=${timeFromTimestamp}&sort=RELEVANCE`;
-        //const apiUrl = `https://www.alphavantage.co/query?function=NEWS_SENTIMENT&tickers=AAPL&apikey=demo`;
-        console.log(timeFromTimestamp);
-      }
+      // else if (filter === "TIME_FROM") {
+      //   const timeFromTimestamp = timeFrom.replace(/-/g, "").concat("T0130");
+      //   apiUrl += `&time_from=${timeFromTimestamp}&sort=RELEVANCE`;
+      //   //const apiUrl = `https://www.alphavantage.co/query?function=NEWS_SENTIMENT&tickers=AAPL&apikey=demo`;
+      //   console.log(timeFromTimestamp);
+      // }
       console.log("Filter: " + filter);
 
       // Show the loading spinner
@@ -706,14 +699,14 @@
     }
 
     // Show/hide the date input based on the filter selection
-    $("#filterDropdown").change(function () {
-      const selectedFilter = $(this).val();
-      if (selectedFilter === "TIME_FROM") {
-        $("#timeFromInput").show();
-      } else {
-        $("#timeFromInput").hide();
-      }
-    });
+    // $("#filterDropdown").change(function () {
+    //   const selectedFilter = $(this).val();
+    //   if (selectedFilter === "TIME_FROM") {
+    //     $("#timeFromInput").show();
+    //   } else {
+    //     $("#timeFromInput").hide();
+    //   }
+    // });
 
     // Handle the search button click
     $("#searchButton2").click(function () {

@@ -158,7 +158,7 @@
           <h5 id="Budget"></h5>
         
           <h5 id="amount"></h5>
-          <button type="button" id="check-button" class="btn btn-outline-primary" style="display: none;">Check</button>
+          <button type="button" id="check-button" class="btn btn-outline-primary">Check</button>
           <button onclick="auto_fill()" type="button" id="check-button" class="btn btn-outline-primary">Auto filling</button><br><br><br>
       
           <!-- Add a "Cancel" button to remove the last stock symbol -->
@@ -218,7 +218,7 @@
     inner += `
         <span>${stock.symbol} (price: $${stock.price}):</span><br>
         <div class="col-2">
-            <input onchange="clickEventHandler()" class="form-control" type="number" name="${stock.symbol.trim()}" placeholder="Number of shares" value="1">
+            <input class="form-control" type="number" name="${stock.symbol.trim()}" placeholder="Number of shares" value="1">
         </div>
         <br>
     `;

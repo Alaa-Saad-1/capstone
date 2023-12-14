@@ -227,14 +227,6 @@
       <span>Trade</span>
       </a>
   </li><!-- End Contact Page Nav -->
-
-  <li class="nav-item">
-      <a class="nav-link collapsed" href="pages-register.html">
-      <i class="bi bi-card-list"></i>
-      <span>Register</span>
-      </a>
-  </li><!-- End Register Page Nav -->
-
   </ul>
 
 </aside><!-- End Sidebar-->
@@ -365,7 +357,7 @@
 
     <!-- Edit Modal For Wallet-->
     <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
+      <div class="modal-dialog mx-auto modal-sm" style="max-width: 600px;">
           <div class="modal-content">
               <div class="modal-header">
                   <h5 class="modal-title" id="editModalLabel">Confirm Edit</h5>
@@ -382,9 +374,11 @@
       </div>
     </div>
 
+
+
     <!-- Bootstrap modal -->
     <div class="modal fade" id="sellPlanModal" tabindex="-1" aria-labelledby="sellPlanModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
+      <div class="modal-dialog mx-auto modal-sm" style="max-width: 400px;">
           <div class="modal-content">
               <div class="modal-header">
                   <h5 class="modal-title" id="sellPlanModalLabel">Confirmation</h5>
@@ -466,7 +460,7 @@
       }));
       console.log("Returned Value = " + returnedValue);
       const wallet = localStorage.getItem('wallet')||0;
-      localStorage.setItem('wallet', (Number(wallet)+returnedValue));
+      localStorage.setItem('wallet', (Number(wallet)+returnedValue).toFixed(2));
 
       const newPlans = plans.filter((plan)=>{
         if(Number(plan.ID) != Number(PlanID))
@@ -700,9 +694,6 @@
         modal.show();
     };
 
-
-
-
       document.getElementById('Total_plans').textContent = parsedData.length;
 
       let totalBudget = parsedData.reduce((sum, obj) => sum + parseFloat(Number(obj.Budget)), 0);
@@ -763,7 +754,7 @@
     document.addEventListener("DOMContentLoaded", function () {
         const wallet = localStorage.getItem('wallet')||0;
 
-        document.getElementById('wallet').innerText = wallet;
+        document.getElementById('wallet').innerText = Number(wallet).toFixed(2);
 
         document.getElementById('NO_BTN').addEventListener('click', () => {
             document.getElementById('saveButton').style.display = 'none';

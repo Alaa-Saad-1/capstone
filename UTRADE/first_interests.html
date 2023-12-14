@@ -33,8 +33,9 @@
     }
 
     .selected {
-        border: 3px solid #007bff; /* Highlight selected images */
-        box-shadow: 0 0 25px rgba(0, 123, 255, 0.5); /* Add a subtle shadow to selected images */
+        filter: brightness(70%);
+        border: 5px solid #007bff; /* Highlight selected images */
+        box-shadow: 0 0 25px rgba(0, 123, 255, 20.5); /* Add a subtle shadow to selected images */
     }
 
     p {
@@ -59,7 +60,7 @@
 <header id="header" class="header fixed-top d-flex align-items-center">
 
 <div class="d-flex align-items-center justify-content-between">
-<a href="interests.html" class="logo d-flex align-items-center">
+<a class="logo d-flex align-items-center">
 <img src="assets/img/logo.png" alt="logo" style="padding-left: 40px;">
 </a>
 </div><!-- End Logo -->
@@ -95,6 +96,16 @@
                 <div class="col-lg-3 col-md-4 col-sm-6 text-center">
                     <img src="img/IOT.jpg" alt="Interest 6" class="interest-img" onclick="toggleSelection(this)">
                     <p>Internet of Things</p>
+                </div>
+
+
+                <div class="col-lg-3 col-md-4 col-sm-6 text-center">
+                    <img src="img/Machine_Learing.jpg" alt="Interest 7" class="interest-img" onclick="toggleSelection(this)">
+                    <p>Machine Learning</p>
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-6 text-center">
+                    <img src="img/Semiconductors.jpg" alt="Interest 8" class="interest-img" onclick="toggleSelection(this)">
+                    <p>Semiconductors</p>
                 </div>
             </div>
             
