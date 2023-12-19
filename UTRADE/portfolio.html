@@ -260,7 +260,7 @@
         <div class="col-lg-3 col-sm-6">
           <div class="card info-card revenue-card">
             <div class="card-body">
-                <h5 class="card-title CARD_titles">Amount of gain/lose:</h5>
+                <h5 class="card-title CARD_titles">Amount of gain/loss:</h5>
                 <div class="d-flex align-items-center">
                     <div class="ps-3">
                         <h6 id="gain_lose">0$</h6>
@@ -568,7 +568,7 @@
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
-                <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Plan Details</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body My_modal-body" id="modal_content">
@@ -616,13 +616,13 @@
                 // Update modal content with the sum of prices
                 /*_____________________________________________________________________________________________*/
                 modalContent.innerHTML = `
-                    <p>Stocks: ${symbolsString}</p>
-                    <p>Start Date: ${data.FromDate}</p>
-                    <p>End Date: ${data.DueDate}</p>
-                    <p>Initial Amount: $${data.Budget}</p>
-                    <p>Total Price Now: $${sumOfPrices.toFixed(2)}</p>
-                    <p>Shares per stock: ${symbolsString_WithShares}</p>
-                    <p>Our Total Predict: $${data.FinalAmount}</p>
+                    <p><b>Stocks:</b> ${symbolsString}</p>
+                    <p><b>Start Date: </b>${data.FromDate}</p>
+                    <p><b>Expected Selling Date: </b>${data.DueDate}</p>
+                    <p><b>Initial Amount: </b>$${data.Budget}</p>
+                    <p><b>Total Price Now: </b>$${sumOfPrices.toFixed(2)}</p>
+                    <p><b>Shares per stock: </b>{symbolsString_WithShares}</p>
+                    <p><b>Total Prediction: </b>$${data.FinalAmount}</p>
 
 
                 `;
@@ -642,10 +642,11 @@
                         <div class="container">
                           <h2>${counter+1}. Symbol: ${stock.symbol}</h2>
                           <p>Shares: ${stock.shares}</p>
-                          <p>Initial Price: $${stock.price}</p>
-                          <p>Initial SharesxPrice: ${stock.shares} x ($${stock.price}) = $${stock.shares*stock.price}</p>
-                          <p>Now Price: $${S_prices[counter++]}</p>
-                          <p>Our Preddict: $${stock.finalPrice}</p>
+                          <p>Initial Price: $${stock.price}</p>               
+                          <!-- <p>Initial SharesxPrice: ${stock.shares} x ($${stock.price}) = $${stock.shares*stock.price}</p> -->
+                          <p>Total Price Now: $${stock.shares*stock.price}</p>
+                          <p>Price Now: $${S_prices[counter++]}</p>
+                          <p>Prediction: $${stock.finalPrice}</p>
 
 
                           <div class="tradingview-widget-container" style="height: 500px; width: 100%;">

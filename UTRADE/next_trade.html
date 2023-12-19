@@ -272,7 +272,7 @@
                           <div class="modal-dialog">
                               <div class="modal-content">
                                   <div class="modal-header">
-                                      <h1 class="modal-title fs-5" id="staticBackdropLabel">alert!</h1>
+                                      <h1 class="modal-title fs-5" id="staticBackdropLabel">Confirm Budget</h1>
                                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                   </div>
                                   <div class="modal-body">
@@ -341,16 +341,17 @@
                     <div class="modal-dialog">
                         <div class="modal-content">
                         <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="staticBackdropLabel">warning!</h1>
+                            
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
                             ${difference<0? `
-                              You do not have enough money in your wallet to complete this process.<br><br>
+                              <b>You do not have enough money in your wallet to complete this process.</b><br><br>
                               You have <b>${wallet}</b>$ in your wallet, and you need to add <b>${-1*initialAmount.toFixed(2)}$</b> to your budget
                               which means at least you should have <b>$${-1*initialAmount.toFixed(2)}$</b> in your wallet to complete this process.<br><br>
                               Do you want to add <b>${((-1*initialAmount)-wallet).toFixed(2)}$</b> to your wallet so your wallet would be <b>${-1*initialAmount.toFixed(2)}$</b>.`
                               :`
+                              <b>The budget is not enough</b><br><br>
                               You must add <b>$${-1*initialAmount.toFixed(2)}</b> to your budget<br><br>
                               Do you want to add <b>$${-1*initialAmount.toFixed(2)}</b> to your budget<br>
                               Your budget will be: <b>$${(Number(latestStockData.Budget)+(-1*initialAmount)).toFixed(2)}</b>
