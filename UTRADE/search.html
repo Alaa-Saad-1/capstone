@@ -227,7 +227,8 @@
 
           // Function to fetch and display data from the API
           function fetchTechStocks() {
-              const apiKey = 'k0wOZwaeBqPBeeutNskntC6QdhCCK4WY';
+              const apiKey = '0f08f20f61c268804f9e94f55246c81a';
+              //const apiKey = 'k0wOZwaeBqPBeeutNskntC6QdhCCK4WY';
               const symbols = ["AAPL", "MSFT", "GOOG", "AMZN", "NVDA", "META", "TSLA", "BABA", "CRM", "AMD", "INTC", "ATVI", "PYPL", "TTD", "EA", "MTCH", "ZG", "YELP"];
               const apiUrl = `https://financialmodelingprep.com/api/v3/quote-order/${symbols.join(",")}?apikey=${apiKey}`;
 
@@ -412,7 +413,8 @@
       
           // Function to fetch and display data from the API
       function fetchTechStocks2() {
-          const apiKey = 'k0wOZwaeBqPBeeutNskntC6QdhCCK4WY';
+          const apiKey = '0f08f20f61c268804f9e94f55246c81a';
+          //const apiKey = 'k0wOZwaeBqPBeeutNskntC6QdhCCK4WY';
           const symbol = document.getElementById("symbolInput").value.toUpperCase();
           const apiUrl = `https://financialmodelingprep.com/api/v3/quote-order/${symbol}?apikey=${apiKey}`;
       
